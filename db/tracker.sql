@@ -1,12 +1,12 @@
-DROP TABLE users IF EXISTS;
-DROP TABLE transactions IF EXISTS;
-DROP TABLE merchants IF EXISTS;
-DROP TABLE categories IF EXISTS;
+DROP TABLE IF EXISTS users ;
+DROP TABLE IF EXISTS transactions;
+DROP TABLE IF EXISTS merchants;
+DROP TABLE IF EXISTS categories;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   first_name VARCHAR(255),
-  last_name VARCHAR(255)
+  last_name VARCHAR(255),
   savings_goal INT, 
   monthly_income INT,
   email VARCHAR
@@ -26,9 +26,9 @@ CREATE TABLE merchants (
 
 CREATE TABLE transactions (
   id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id) SET NULL ON DELETE,
+  user_id INT REFERENCES users(id) ON DELETE SET NULL,
   transaction_date DATE, --yyyy-mm-dd
-  merchant_id INT REFERENCES merchants(id) SET NULL ON DELETE,
+  merchant_id INT REFERENCES merchants(id) ON DELETE SET NULL,
   category_id INT REFERENCES categories(id),
   amount INT
 );
