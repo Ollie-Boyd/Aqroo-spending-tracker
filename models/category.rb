@@ -1,13 +1,11 @@
 
-class Merchant
+class Category
 
-    attr_reader :id, :name, :icon, :css_colour
-    
+    attr_reader :id, :name
+
     def initialize(options)
         @id = options['id'].to_i if options['id']
         @name = options['name']
-        @icon = options['icon']
-        @css_colour = options['css_colour']
     end
 
     def save()
@@ -55,6 +53,10 @@ class Merchant
         return arr.map { |hash| Merchant.new(hash)}
     end
 
-
+   
+    def self.map_to_objects(arr)
+        return arr.map { |hash| Category.new(hash)}
+    end
+    
 
 end

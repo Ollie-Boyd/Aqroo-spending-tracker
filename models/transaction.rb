@@ -11,12 +11,9 @@ class Transaction
         @amount = options['amount']
     end
 
-    id SERIAL PRIMARY KEY,
-    transaction_date DATE,
-    merchant_id INT REFERENCES merchants(id),
-    category_id INT REFERENCES catagories(id),
-    amount INT
-  );
+    def self.map_to_objects(arr)
+      return arr.map { |hash| Transaction.new(hash)}
+    end
 
 
 end
