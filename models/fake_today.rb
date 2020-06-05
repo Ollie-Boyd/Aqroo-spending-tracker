@@ -2,12 +2,14 @@ class FakeToday
 
 
     def initialize(date)
-        @now = date #yyyy-mm-dd
+        @now = Date.new(date)
     end
     
     def now()
         return @now
     end
+
+    
 
 
 

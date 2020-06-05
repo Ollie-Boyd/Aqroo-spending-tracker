@@ -29,7 +29,7 @@ CREATE TABLE transactions (
   user_id INT REFERENCES users(id) SET NULL ON DELETE,
   transaction_date DATE, --yyyy-mm-dd
   merchant_id INT REFERENCES merchants(id) SET NULL ON DELETE,
-  category_id INT REFERENCES catagories(id),
+  category_id INT REFERENCES categories(id),
   amount INT
 );
 

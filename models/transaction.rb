@@ -1,3 +1,9 @@
+require_relative('./sql_runner')
+require_relative('./sql_runner')
+require_relative('./category')
+require_relative('./merchant')
+require_relative('./fake_today')
+require_relative('./user')
 
 class Transaction
 
@@ -12,10 +18,10 @@ class Transaction
     end
 
     def save()
-      sql = "INSERT INTO transactions (transaction_date, merchant_id, category_id, amount) VALUES ($1, $2, $3, $4) RETURNING transactions.id"
-      values = [@transaction_date, @merchant_id, @category_id, @amount]
-      returned_id = SqlRunner.run(sql, values)[0]['id'].to_i
-      @id = returned_id
+        sql = "INSERT INTO transactions (transaction_date, merchant_id, category_id, amount) VALUES ($1, $2, $3, $4) RETURNING transactions.id"
+        values = [@transaction_date, @merchant_id, @category_id, @amount]
+        returned_id = SqlRunner.run(sql, values)[0]['id'].to_i
+        @id = returned_id
     end
 
     def delete()
@@ -50,6 +56,20 @@ class Transaction
         values = [id]
         retrieved_transaction = SqlRunner.run(sql, values)[0]
         return Transaction.new(retrieved_transaction)
+    end
+
+    def merchant()
+        sql = "SELECT * FROM merchants WHERE id = $1"
+        values = [@merchant_id]
+        retrieved_merchant = SqlRunner.run(sql, values)[0]
+        return Merchant.new(retrieved_merchant)
+    end
+
+    def category()
+        sql = "SELECT * FROM categories WHERE id = $1"
+        values = [@category_id]
+        retrieved_category = SqlRunner.run(sql, values)[0]
+        return Category.new(retrieved_category)
     end
 
     def self.map_to_objects(arr)

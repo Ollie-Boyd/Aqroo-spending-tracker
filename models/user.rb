@@ -1,5 +1,9 @@
 require_relative('./sql_runner')
 require_relative('./transaction')
+require_relative('./sql_runner')
+require_relative('./category')
+require_relative('./merchant')
+require_relative('./fake_today')
 
 class User
 
