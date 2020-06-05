@@ -11,9 +11,9 @@ class Transaction
         @amount = options['amount']
     end
 
-    def self.map_to_objects(arr)
-      return arr.map { |hash| Transaction.new(hash)}
-    end
+ 
+
+
 
 
 end

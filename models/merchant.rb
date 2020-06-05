@@ -1,18 +1,16 @@
 
 class Merchant
 
-    attr_reader :id, :name, :icon, :css_colour
-    
+    attr_reader :id, :name
+
     def initialize(options)
         @id = options['id'].to_i if options['id']
         @name = options['name']
-        @icon = options['icon']
-        @css_colour = options['css_colour']
     end
 
     def save()
-        sql = "INSERT INTO merchants (name, icon, css_colour) VALUES ($1, $2, $3) RETURNING merchants.id"
-        values = [@name, @icon, @css_colour]
+        sql = "INSERT INTO merchants (name) VALUES ($1) RETURNING merchants.id"
+        values = [@name]
         returned_id = SqlRunner.run(sql, values)[0]['id'].to_i
         @id = returned_id
     end
@@ -26,9 +24,9 @@ class Merchant
     def update
         sql = "
             UPDATE merchants
-            SET name = $1, icon = $2, css_colour = $3
-            WHERE id = $4"
-        values = [@name, @icon, @css_colour, @id]
+            SET name = $1
+            WHERE id = $2"
+        values = [@name, @id]
         SqlRunner.run(sql, values)
     end
 
@@ -53,8 +51,6 @@ class Merchant
 
     def self.map_to_objects(arr)
         return arr.map { |hash| Merchant.new(hash)}
-    end
-
-
+    end 
 
 end
