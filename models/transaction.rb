@@ -7,19 +7,20 @@ require_relative('./user')
 
 class Transaction
 
-    attr_reader :id, :transaction_date, :merchant_id, :category_id, :amount
+    attr_reader :id, :transaction_date, :merchant_id, :category_id, :amount, :user_id
     
     def initialize(options)
         @id = options['id'].to_i if options['id']
         @transaction_date = Date.parse(options['transaction_date'])
         @merchant_id = options['merchant_id']
         @category_id = options['category_id']
-        @amount = options['amount'].to_i
+        @amount = options['amount'].to_f
+        @user_id = options['user_id'].to_i
     end
 
     def save()
-        sql = "INSERT INTO transactions (transaction_date, merchant_id, category_id, amount) VALUES ($1, $2, $3, $4) RETURNING transactions.id"
-        values = [@transaction_date, @merchant_id, @category_id, @amount]
+        sql = "INSERT INTO transactions (transaction_date, merchant_id, category_id, amount, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING transactions.id"
+        values = [@transaction_date, @merchant_id, @category_id, @amount, @user_id]
         returned_id = SqlRunner.run(sql, values)[0]['id'].to_i
         @id = returned_id
     end

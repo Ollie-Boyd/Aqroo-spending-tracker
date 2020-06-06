@@ -13,8 +13,8 @@ class User
         @id = options['id'].to_i if options['id']
         @first_name = options['first_name']
         @last_name = options['last_name']
-        @savings_goal = options['savings_goal']
-        @monthly_income = options['monthly_income']
+        @savings_goal = options['savings_goal'].to_f
+        @monthly_income = options['monthly_income'].to_f
         @email = options['email']
     end
 
@@ -89,5 +89,10 @@ class User
         retrieved_categories = SqlRunner.run(sql, values)
         retrieved_category_objects = Merchant.map_to_objects(retrieved_categories)
         return retrieved_category_objects
+    end
+
+    def transactions_grouped_by_date()
+        user_transactions = transactions()
+        user_transactions_grouped_hash = user_transactions.group_by( |transaction|)
     end
 end

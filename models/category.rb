@@ -13,12 +13,13 @@ class Category
         @id = options['id'].to_i if options['id']
         @name = options['name']
         @icon = options['icon']
-        @css_colour = options['css_colour']
+        @css_colour_1 = options['css_colour_1']
+        @css_colour_2 = options['css_colour_2']
     end
 
     def save()
-        sql = "INSERT INTO categories (name, icon, css_colour) VALUES ($1, $2, $3) RETURNING categories.id"
-        values = [@name, @icon, @css_colour]
+        sql = "INSERT INTO categories (name, icon, css_colour_1, css_colour_2) VALUES ($1, $2, $3, $4) RETURNING categories.id"
+        values = [@name, @icon, @css_colour_1, @css_colour_2]
         returned_id = SqlRunner.run(sql, values)[0]['id'].to_i
         @id = returned_id
     end
@@ -32,9 +33,9 @@ class Category
     def update
         sql = "
             UPDATE categories
-            SET name = $1, icon = $2, css_colour = $3
-            WHERE id = $4"
-        values = [@name, @icon, @css_colour, @id]
+            SET name = $1, icon = $2, css_colour_1 = $3, css_colour_2 = $4
+            WHERE id = $5"
+        values = [@name, @icon, @css_colour_1, @css_colour_2, @id]
         SqlRunner.run(sql, values)
     end
 
