@@ -13,5 +13,5 @@ require_relative('../db/seeds')
 user_charlie = User.find_by_id(1)
 
 
-p user_charlie.transactions()
+p user_charlie.transactions_grouped_by_date(5)
 

@@ -64,8 +64,16 @@ class User
     end
 
     def transactions()
-        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1"
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 ORDER BY transactions.transaction_date DESC"
         values = [@id]
+        retrieved_transactions = SqlRunner.run(sql, values)
+        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
+        return retrieved_transaction_objects
+    end
+
+    def transactions_by_month(month_number)
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND EXTRACT( MONTH FROM transactions.transaction_date) = $2 ORDER BY transactions.transaction_date DESC"
+        values = [@id, month_number]
         retrieved_transactions = SqlRunner.run(sql, values)
         retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
         return retrieved_transaction_objects
@@ -91,8 +99,10 @@ class User
         return retrieved_category_objects
     end
 
-    def transactions_grouped_by_date()
-        user_transactions = transactions()
-        user_transactions_grouped_hash = user_transactions.group_by( |transaction|)
+    def transactions_grouped_by_date(month=false) #takes an optional month parameter if we want a specific month
+            user_transactions = transactions()
+            user_transactions = transactions_by_month(month) if month.is_a? Integer
+            user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}           
+            return user_transactions_grouped_hash
     end
 end
