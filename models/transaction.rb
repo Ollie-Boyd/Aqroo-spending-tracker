@@ -25,6 +25,10 @@ class Transaction
         @id = returned_id
     end
 
+    def amount_pretty()
+        return sprintf "%.2f",@amount
+    end
+
     def delete()
         sql = "DELETE * FROM transactions WHERE id = $1"
         values = [@id]

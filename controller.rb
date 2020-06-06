@@ -14,6 +14,6 @@ also_reload('./models/*')
 user_charlie = User.find_by_id(1)
 
 get '/transactions' do
-    @transactions = user_charlie.transactions()
+    @transactions = user_charlie.transactions_grouped_by_date()
     erb( :transactions)
 end

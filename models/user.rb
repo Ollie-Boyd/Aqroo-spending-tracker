@@ -105,4 +105,13 @@ class User
             user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}           
             return user_transactions_grouped_hash
     end
+
+    def savings_goal_pretty()
+        return sprintf "%.2f",@savings_goal
+    end
+
+    def monthly_income_pretty()
+        return sprintf "%.2f",@monthly_income
+    end
+
 end

@@ -1,9 +1,10 @@
-Today's movies: 
-<ul>
-<% @transactions.each do |transaction| %>
+all transactions<br>
+<% @transactions.each do |date, transactions| %>
+    <%=date%> <br>
 
-hello
+    <%transactions.each do |transaction|%>
+         <%=transaction.merchant.name()%> <%=transaction.category.name()%> £<%=transaction.amount_pretty()%> <br>
+    <%end %>
 
-    <li>   <%=transaction.merchant.name()%> </li>
 <%end %>
-</ul>
+
