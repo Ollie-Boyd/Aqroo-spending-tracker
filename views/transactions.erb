@@ -1,6 +1,10 @@
-all transactions<br>
+
+
+
+<h2>All transactions</h2>
+
 <% @transactions.each do |date, transactions| %>
-    <%=date%> <br>
+   <div class = 'transaction_date'> <%=date%> <br></div>
 
     <%transactions.each do |transaction|%>
          <%=transaction.merchant.name()%> <%=transaction.category.name()%> £<%=transaction.amount_pretty()%> <br>

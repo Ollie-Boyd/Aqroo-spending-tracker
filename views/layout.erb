@@ -6,38 +6,38 @@
   <meta charset="utf-8"/>
   <title>Aqroo Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
 
 </head>
 
 <body>
 
 <header>
-    <div class="title container">
+    <div class="title-container">
         <span class="title">Aqroo</span>
-        <img src="/public/kangaroo.svg" class="logo" alt="Cartoon kangaroo logo">
+        <img src="/kangaroo-colour.svg" class="header-logo" alt="Cartoon kangaroo logo">
     </div>
     <nav>
 
         <div class="nav-icon-container">
             <div class="dashboard-circle"> 
-                <img src="/public/dashboard-colour.svg" class="dashboard-logo" alt="Dashboard logo">
+                <img src="/dashboard-colour.svg" class="layout-logo" alt="Dashboard logo">
             </div>
-            <span class="title">Dashboard</span>
+            <span class="nav-title">Dashboard</span>
         </div>
 
         <div class="nav-icon-container">
-            <div class="all_transactions-circle"> 
-                <img src="/public/all-transactions.svg" class="transactions-logo" alt="Transactions logo">
+            <div class="all-transactions-circle"> 
+                <img src="/all-transactions.svg" class="layout-logo" alt="Transactions logo">
             </div>
-            <span class="title">Transactions</span>
+            <span class="nav-title">Transactions</span>
         </div>
         
         <div class="nav-icon-container">
             <div class="new-transaction-circle"> 
-                <img src="/public/add.svg" class="add-logo" alt="Add logo">
+                <img src="/add.svg" class="layout-logo" alt="Add logo">
             </div>
-            <span class="title">Add transaction</span>
+            <span class="nav-title">New transaction</span>
         </div>
 
     </nav>
@@ -45,7 +45,9 @@
 
 </header>
 
+<wrap>
 <%=yield%>
+</wrap>
 
 </body>
 </html>
