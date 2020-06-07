@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif&display=swap" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <title>Aqroo Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+
+</head>
+
+<body>
+
+<header>
+    <div class="title container">
+        <span class="title">Aqroo</span>
+        <img src="/public/kangaroo.svg" class="logo" alt="Cartoon kangaroo logo">
+    </div>
+    <nav>
+
+        <div class="nav-icon-container">
+            <div class="dashboard-circle"> 
+                <img src="/public/dashboard-colour.svg" class="dashboard-logo" alt="Dashboard logo">
+            </div>
+            <span class="title">Dashboard</span>
+        </div>
+
+        <div class="nav-icon-container">
+            <div class="all_transactions-circle"> 
+                <img src="/public/all-transactions.svg" class="transactions-logo" alt="Transactions logo">
+            </div>
+            <span class="title">Transactions</span>
+        </div>
+        
+        <div class="nav-icon-container">
+            <div class="new-transaction-circle"> 
+                <img src="/public/add.svg" class="add-logo" alt="Add logo">
+            </div>
+            <span class="title">Add transaction</span>
+        </div>
+
+    </nav>
+
+
+</header>
+
 <%=yield%>
+
+</body>
+</html>

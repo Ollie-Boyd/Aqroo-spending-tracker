@@ -1,0 +1,13 @@
+:root {
+    --main-bg-color: white;
+  }
+  
+  body {
+    font-family: 'Noto Serif', serif;
+    background-color: var(--main-bg-color);
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+    display:flex;
+    justify-content: center;
+  }
