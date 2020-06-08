@@ -18,7 +18,7 @@ year = current_date.year()
 month = current_date.month()
 first_day_this_month = Date.parse("#{year}-#{month}-1")
 
-p user_charlie.spending_as_percentage_of_income__same_day_last_month()
+p user_charlie.create_hash_of_days_in_month_so_far()
 
 
 

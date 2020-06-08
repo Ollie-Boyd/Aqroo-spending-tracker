@@ -11,7 +11,7 @@
 
     :root { --circle-width: 95px;}
 
-    .main {width: 600px;}
+    .main {width: 700px;}
 
     .title-container{height: 110px;}
 
@@ -175,6 +175,10 @@ nav {
 
 .main {
     margin: 0 auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 
@@ -182,7 +186,7 @@ nav {
   Graphs STYLE
   ***************************************/
 
-.dash_module {width: 100%;
+.dash_module {width: 80%;
          height: 150px;
          background-color: #EAF2D7;
          border-radius: 25px;

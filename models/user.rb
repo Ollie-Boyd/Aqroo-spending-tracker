@@ -196,5 +196,34 @@ class User
         return percentage = amount_spent_this_time_last_month/income * 100
     end
 
+    def create_hash_of_days_in_month_so_far() 
+        current_date = FakeToday.now() #refactor
+        day = current_date.day() 
+        year = current_date.year()
+        month = current_date.month()
+        first_day_this_month = Date.parse("#{year}-#{month}-1") 
+        array_of_dates = (first_day_this_month..current_date).to_a
+        hash_of_dates = array_of_dates.map{ |date| [ date, [] ] }.to_h
+        
+        this_months_transactions = transactions_grouped_by_date(month)
+
+        combined_hashes_with_summed_spending_as_percentage_of_income = hash_of_dates.merge(this_months_transactions){|key, blank_arr, transactions| [blank_arr, transactions.map{|transaction| transaction.amount()}.inject(:+)].flatten.first/@monthly_income*100}  #refactor to make readable
+        array_with_summed_spending_as_percentage_of_income = combined_hashes_with_summed_spending_as_percentage_of_income.map{|k,v| v }
+        
+        starting_salary = 100.0
+         p array_with_summed_spending_as_percentage_of_income.map{|day_spend| day_spend}
+        
+    #     days_in_month = total_days_in_month(year, month)
+    #     days_as_percentage = (100.0/days_in_month).round(4)
+
+    #     day_percentages_as_arr = days_as_percentage.step(by: days_as_percentage).take(day)
+        
+    #    day_percentages_as_arr.zip(array_with_summed_spending_as_percentage_of_income)
+
+
+    end
+
+
+
 
 end
