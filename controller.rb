@@ -35,5 +35,8 @@ end
 
 
 get '.profile' do
+    @user = user
+    @merchants = user.merchants()
+    @categories = Categories.all()
     erb (:profile)
 end
