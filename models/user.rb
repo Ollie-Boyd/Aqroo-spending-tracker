@@ -91,8 +91,8 @@ class User
 
     def merchants()
         sql = "SELECT merchants.* FROM merchants
-            INNER JOIN transactions ON transactions.transaction_id = transaction.id
-            WHERE transaction.user_id = $1;"
+            INNER JOIN transactions ON transactions.merchant_id = merchants.id
+            WHERE transactions.user_id = $1;"
         values = [@id]
         retrieved_categories = SqlRunner.run(sql, values)
         retrieved_category_objects = Merchant.map_to_objects(retrieved_categories)
@@ -112,6 +112,17 @@ class User
 
     def monthly_income_pretty()
         return sprintf "%.2f",@monthly_income
+    end
+
+    def check_merchant(string)
+        string_is_in_merchants_db = merchants().index{ |merchant| merchant.name.casecmp?(string)}
+        if string_is_in_merchants_db.nil?
+            new_merchant = Merchant.new({"name" => string})
+            new_merchant.save()
+            return new_merchant.id
+        else
+            return merchants()[string_is_in_merchants_db].id
+        end
     end
 
 end

@@ -16,38 +16,42 @@
     <div class="title-container">
         <span class="title">Aqroo</span>
         <img src="/kangaroo-colour.svg" class="header-logo" alt="Cartoon kangaroo logo">
+        <div class= "profile-logo-container">
+            <img src="/user.svg" class="profile-logo" alt="Cartoon picture of user">
+        </div>
     </div>
     <nav>
 
-        <div class="nav-icon-container">
+        <a href="/dashboard" class="nav-icon-container">
             <div class="dashboard-circle"> 
                 <img src="/dashboard-colour.svg" class="layout-logo" alt="Dashboard logo">
             </div>
             <span class="nav-title">Dashboard</span>
-        </div>
+        </a>
 
-        <div class="nav-icon-container">
+        <a href="/transactions" class="nav-icon-container">
             <div class="all-transactions-circle"> 
                 <img src="/all-transactions.svg" class="layout-logo" alt="Transactions logo">
             </div>
             <span class="nav-title">Transactions</span>
-        </div>
+        </a>
         
-        <div class="nav-icon-container">
+       
+        <a href="/transactions/new" class="nav-icon-container">
             <div class="new-transaction-circle"> 
                 <img src="/add.svg" class="layout-logo" alt="Add logo">
             </div>
             <span class="nav-title">New transaction</span>
-        </div>
+        </a>
 
     </nav>
 
 
 </header>
 
-<wrap>
-<%=yield%>
-</wrap>
+<div class="main">
+    <%=yield%>
+</div>
 
 </body>
 </html>
