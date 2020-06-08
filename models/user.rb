@@ -90,7 +90,7 @@ class User
     end
 
     def merchants()
-        sql = "SELECT merchants.* FROM merchants
+        sql = "SELECT DISTINCT merchants.* FROM merchants
             INNER JOIN transactions ON transactions.merchant_id = merchants.id
             WHERE transactions.user_id = $1;"
         values = [@id]

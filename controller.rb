@@ -8,7 +8,6 @@ require_relative('./models/category')
 require_relative('./models/fake_today')
 require_relative('./models/user')
 require_relative('./models/merchant')
-require_relative('./db/seeds')
 also_reload('./models/*')    
 
 user = User.find_by_id(1)
@@ -34,9 +33,14 @@ post '/transactions' do
 end
 
 
-get '.profile' do
+get '/profile' do
     @user = user
     @merchants = user.merchants()
-    @categories = Categories.all()
+    @categories = Category.all()
     erb (:profile)
+end
+
+post '/merchants/:id/edit' do
+    updated_category= Category.new(params)
+
 end
