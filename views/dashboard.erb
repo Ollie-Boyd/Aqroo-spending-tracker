@@ -3,7 +3,7 @@
 <div class="dash_module">
     <figure>
         <figcaption>Spending now vs this time last month</figcaption>
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="chart" width="90%" height="150" aria-labelledby="title" role="img">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="bar-chart" width="90%" height="150" aria-labelledby="title" role="img">
             <title id="title">A bart chart showing information</title>
             <g class="bar-last">
                 <rect width="<%=@this_time_last_month_percentage_spent%>%" height="19"></rect>
@@ -24,6 +24,7 @@
 
 <div class="dash_module">
     <figure>
+        
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="chart">
         
         <polyline
@@ -32,12 +33,9 @@
             vector-effect="non-scaling-stroke"
             stroke-width="2"
             points="
-            00,100
-            20,60
-            40,80
-            60,20
-            80,80
-            100,80
+            <%@line_graph_coords.each do |coord_pair|%>
+            <%=coord_pair[0]%>,<%=coord_pair[1] %>
+            <%end%>
                 "
         />
         

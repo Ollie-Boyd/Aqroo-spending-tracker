@@ -214,8 +214,8 @@ class User
         
         array_with_summed_spending_as_percent_of_monthly_salary = array_with_summed_spending.map{|spend| spend/@monthly_income * 100 }
         
-        starting_graph_percentage_y_axis = 100.0
-        y_axis_reducing_value = array_with_summed_spending_as_percent_of_monthly_salary.map{|day_spend| starting_graph_percentage_y_axis-=day_spend}
+        starting_graph_percentage_y_axis = 0
+        y_axis_reducing_value = array_with_summed_spending_as_percent_of_monthly_salary.map{|day_spend| starting_graph_percentage_y_axis+=day_spend}
         
         days_in_month = total_days_in_month(year, month)
         days_as_percentage = (100.0/days_in_month).round(4)
