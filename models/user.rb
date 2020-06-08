@@ -126,21 +126,67 @@ class User
     end
 
     def days_so_far_in_month()
-        # current_date = FakeToday.now() 
-        # year = current_date.year()
-        # month = current_date.month()
-        # first_day_this_month = Date.parse("#{year}-#{month}-1")
         days_so_far = current_date.day()
         return days_so_far
     end
 
 
-    def spending_as_percentage_of_income__current_month()
-       
-# SELECT * FROM Product_sales  WHERE From_date <= @RangeTill OR To_date >= @RangeFrom
+    def get_date_range_transactions_including_bills(from, to)
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transaction_date >= $2 AND transaction_date <  $3 ORDER BY transactions.transaction_date DESC"
+        values = [@id, from, to]
+        retrieved_transactions = SqlRunner.run(sql, values)
+        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
+        return retrieved_transaction_objects
     end
 
-    def spending_as_percentage_of_income__last_month()
+
+    def sum_transactions(transaction_arr)
+        transaction_amounts= transaction_arr.map{|transaction| transaction.amount()}
+        return transaction_amounts.inject{|sum, transaction| sum + transaction}
+    end
+
+
+
+
+
+    def spending_as_percentage_of_income__current_month()
+        current_date = FakeToday.now() 
+        year = current_date.year()
+        month = current_date.month()
+        first_day_this_month = Date.parse("#{year}-#{month}-1") 
+
+
+        this_months_transactions = get_date_range_transactions_including_bills(first_day_this_month, current_date)
+
+        amount_spent_so_far = sum_transactions(this_months_transactions)
+
+        income = @monthly_income
+
+        return percentage = amount_spent_so_far/income * 100
+
+    end
+
+
+    def total_days_in_month(year, month)
+        Date.new(year, month, -1).day
+    end
+
+
+    def spending_as_percentage_of_income__same_day_last_month()
+        current_date = FakeToday.now() 
+        year = current_date.year()
+        last-month = current_date.month()-1
+        first_day_last_month = Date.parse("#{year}-#{month}-1") 
+
+
+
+
+
+
+
+
+
+
 
     end
 
