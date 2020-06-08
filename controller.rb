@@ -61,5 +61,7 @@ post '/categories/:id' do
 end
 
 get '/dashboard' do
+    @this_month_percentage_spent = user.spending_as_percentage_of_income__current_month()
+    @this_time_last_month_percentage_spent = user.spending_as_percentage_of_income__same_day_last_month()
     erb(:dashboard)
 end

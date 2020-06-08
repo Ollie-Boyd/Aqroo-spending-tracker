@@ -174,20 +174,26 @@ class User
 
     def spending_as_percentage_of_income__same_day_last_month()
         current_date = FakeToday.now() 
+        day = current_date.day() 
         year = current_date.year()
-        last-month = current_date.month()-1
-        first_day_last_month = Date.parse("#{year}-#{month}-1") 
+        last_month = current_date.month()-1
+        first_day_last_month = Date.parse("#{year}-#{last_month}-1") 
 
 
+        total_days_last_month = total_days_in_month(year, last_month)
 
+        #we don't want to tip into the next month's spending if the current month's number of calendar days is more than exist in this previous month. ie if this month has 31 days and last had 28
+        end_day = day > total_days_last_month ? (total_days_last_month) : (day)
+      
+        last_date_in_range = Date.parse("#{year}-#{last_month}-#{end_day}") 
+        
+        last_months_transactions = get_date_range_transactions_including_bills(first_day_last_month, last_date_in_range)
 
+        amount_spent_this_time_last_month = sum_transactions(last_months_transactions)
 
+        income = @monthly_income
 
-
-
-
-
-
+        return percentage = amount_spent_this_time_last_month/income * 100
     end
 
 
