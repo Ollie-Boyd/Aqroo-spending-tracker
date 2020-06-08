@@ -59,3 +59,7 @@ post '/categories/:id' do
     Category.new(params).update()   
     redirect '/profile'
 end
+
+get '/dashboard' do
+    erb(:dashboard)
+end

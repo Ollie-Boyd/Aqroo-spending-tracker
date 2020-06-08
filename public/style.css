@@ -11,7 +11,7 @@
 
     :root { --circle-width: 95px;}
 
-    .main {width: 800px;}
+    .main {width: 600px;}
 
     .title-container{height: 110px;}
 
@@ -182,15 +182,34 @@ nav {
   Graphs STYLE
   ***************************************/
 
-.bar {
+.bar-last {
     fill: #aaa;
     height: 21px;
     transition: fill .3s ease;
-    cursor: pointer;
-    font-family: Helvetica, sans-serif;
     
     text {
-      fill: #555;
+      /* fill: #555; */
+    }
+  }
+
+  .bar-this {
+    fill: red;
+    height: 21px;
+    transition: fill .3s ease;
+    
+    text {
+      /* fill: #555; */
+    }
+  }
+
+
+  .bar-scale {
+    fill: #4e8098;;
+    height: 21px;
+    transition: fill .3s ease;
+    
+    text {
+      /* fill: #555; */
     }
   }
   
@@ -212,10 +231,5 @@ nav {
   
   figcaption {
     font-weight: bold;
-    color: #000;
     margin-bottom: 20px;
-  }
-  
-  body {
-    font-family: 'Open Sans', sans-serif;
   }
