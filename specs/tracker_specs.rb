@@ -8,9 +8,12 @@ require_relative('../models/fake_today')
 require_relative('../models/user')
 require_relative('../models/merchant')
 
+today = FakeToday.now().month() 
+p today
 
-user_charlie = User.find_by_id(1)
 
 
-p user_charlie.check_merchant("")
+
+p Date.parse("2020-06-09")
+
 

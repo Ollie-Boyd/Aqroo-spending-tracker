@@ -1,27 +1,16 @@
+
+require('date')
+
 class FakeToday
 
 
-    def initialize(date)
-        @now = Date.new(date)
+    
+    def initialize()
+        
     end
     
-    def now()
-        return @now
+    def self.now()
+        return Date.parse("2020-06-09")
     end
-
-    
-
-
-
-# You can use to_s(:db) to convert into a database friendly format.
-
-# Time.now.to_s(:db)
-
-# However, be careful if you have a timezone specified in Rails because the time will be stored in UTC in the database. You'll need to specify that to do proper comparisons.
-
-# Time.now.utc.to_s(:db)
-
-# You can also use NOW() function in MySQL instead of generating the current time in Ruby.
-
 
 end

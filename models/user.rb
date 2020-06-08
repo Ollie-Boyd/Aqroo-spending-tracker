@@ -125,4 +125,16 @@ class User
         end
     end
 
+
+    def spending_as_percentage_of_income__current_month()
+        current_date = FakeToday.now() 
+        p current_date
+
+    end
+
+    def spending_as_percentage_of_income__current_month()
+
+    end
+
+
 end
