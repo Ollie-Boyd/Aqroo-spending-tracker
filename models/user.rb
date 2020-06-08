@@ -125,14 +125,22 @@ class User
         end
     end
 
-
-    def spending_as_percentage_of_income__current_month()
-        current_date = FakeToday.now() 
-        p current_date
-
+    def days_so_far_in_month()
+        # current_date = FakeToday.now() 
+        # year = current_date.year()
+        # month = current_date.month()
+        # first_day_this_month = Date.parse("#{year}-#{month}-1")
+        days_so_far = current_date.day()
+        return days_so_far
     end
 
+
     def spending_as_percentage_of_income__current_month()
+       
+# SELECT * FROM Product_sales  WHERE From_date <= @RangeTill OR To_date >= @RangeFrom
+    end
+
+    def spending_as_percentage_of_income__last_month()
 
     end
 
