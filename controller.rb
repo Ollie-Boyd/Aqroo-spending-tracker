@@ -40,7 +40,22 @@ get '/profile' do
     erb (:profile)
 end
 
-post '/merchants/:id/edit' do
-    updated_category= Category.new(params)
+get '/merchants/:id/edit' do
+    @merchant = Merchant.find_by_id(params['id'])
+    erb(:"merchants/edit")
+end
 
+post '/merchants/:id' do
+    Merchant.new(params).update()   
+    redirect '/profile'
+end
+
+get '/categories/:id/edit' do
+    @category = Category.find_by_id(params['id'])
+    erb(:"categories/edit")
+end
+
+post '/categories/:id' do
+    Category.new(params).update()   
+    redirect '/profile'
 end

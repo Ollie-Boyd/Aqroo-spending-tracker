@@ -10,9 +10,7 @@ Email: <%=@user.email()%> <br>
 
 <% @merchants.each do |merchant|  %>
 
-    <form method="POST" action="/merchants/<%=merchant.id()%>/edit">
-        <input type="text" value = "<%=merchant.name()%>" name="merchant_name" id="merchant_name"/><input type="submit" value="submit change"/>
-    <form><br>
+    <%=merchant.name%> <a href="/merchants/<%=merchant.id%>/edit">Edit</a><br>
 
 <% end %>
 
@@ -20,11 +18,6 @@ Email: <%=@user.email()%> <br>
 
 <% @categories.each do |category|  %>
 
-    <form method="POST" action="/categories/<%=category.id()%>/edit">
-        <input type="text" value = "<%=category.name()%>" name="category_name" id="category_name"/><input type="submit" value="submit change"/>
-    <form><br>
+    <%=category.name%> <a href="/categories/<%=category.id%>/edit">Edit</a><br>
 
 <% end %>
-
-
-

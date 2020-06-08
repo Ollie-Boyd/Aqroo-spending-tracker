@@ -12,9 +12,9 @@ class Category
     def initialize(options)
         @id = options['id'].to_i if options['id']
         @name = options['name']
-        @icon = options['icon']
-        @css_colour_1 = options['css_colour_1']
-        @css_colour_2 = options['css_colour_2']
+        @icon = options['icon'] if options['icon'] 
+        @css_colour_1 = options['css_colour_1'] if options['css_colour_1']
+        @css_colour_2 = options['css_colour_2'] if options['css_colour_2']
     end
 
     def save()

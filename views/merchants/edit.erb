@@ -1,0 +1,4 @@
+<h1>Edit <%=@merchant.name()%></h1>
+<form method="POST" action="/merchants/<%=@merchant.id()%>">
+        <input type="text" value = "<%=@merchant.name()%>" name="name" id="<%=@merchant.name()%>"/><input type="submit" value="submit change to <%=@merchant.name()%>"/>
+<form>
