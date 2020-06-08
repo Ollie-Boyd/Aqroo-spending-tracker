@@ -196,30 +196,35 @@ class User
         return percentage = amount_spent_this_time_last_month/income * 100
     end
 
-    def create_hash_of_days_in_month_so_far() 
+    def get_x_y_graph_coords() 
         current_date = FakeToday.now() #refactor
         day = current_date.day() 
         year = current_date.year()
         month = current_date.month()
         first_day_this_month = Date.parse("#{year}-#{month}-1") 
         array_of_dates = (first_day_this_month..current_date).to_a
-        hash_of_dates = array_of_dates.map{ |date| [ date, [] ] }.to_h
+        hash_of_dates = array_of_dates.map{ |date| [ date, [0] ] }.to_h
         
         this_months_transactions = transactions_grouped_by_date(month)
 
-        combined_hashes_with_summed_spending_as_percentage_of_income = hash_of_dates.merge(this_months_transactions){|key, blank_arr, transactions| [blank_arr, transactions.map{|transaction| transaction.amount()}.inject(:+)].flatten.first/@monthly_income*100}  #refactor to make readable
-        array_with_summed_spending_as_percentage_of_income = combined_hashes_with_summed_spending_as_percentage_of_income.map{|k,v| v }
+        combined_hashes_with_spending = hash_of_dates.merge(this_months_transactions){|key, blank_arr, transactions| [blank_arr, transactions.map{|transaction| transaction.amount()}].flatten}  #refactor to make readable
+        array_with_spending = combined_hashes_with_spending.map{|k,v| v }
         
-        starting_salary = 100.0
-         p array_with_summed_spending_as_percentage_of_income.map{|day_spend| day_spend}
+        array_with_summed_spending = array_with_spending.map{|spends| spends.inject(:+) }
         
-    #     days_in_month = total_days_in_month(year, month)
-    #     days_as_percentage = (100.0/days_in_month).round(4)
+        array_with_summed_spending_as_percent_of_monthly_salary = array_with_summed_spending.map{|spend| spend/@monthly_income * 100 }
+        
+        starting_graph_percentage_y_axis = 100.0
+        y_axis_reducing_value = array_with_summed_spending_as_percent_of_monthly_salary.map{|day_spend| starting_graph_percentage_y_axis-=day_spend}
+        
+        days_in_month = total_days_in_month(year, month)
+        days_as_percentage = (100.0/days_in_month).round(4)
 
-    #     day_percentages_as_arr = days_as_percentage.step(by: days_as_percentage).take(day)
+        day_percentages_as_arr = days_as_percentage.step(by: days_as_percentage).take(day)
         
-    #    day_percentages_as_arr.zip(array_with_summed_spending_as_percentage_of_income)
-
+        combined_x_y_percentages = day_percentages_as_arr.zip(y_axis_reducing_value)
+        
+       return combined_x_y_percentages.prepend([0.0,0.0])
 
     end
 
