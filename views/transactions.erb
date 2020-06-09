@@ -1,21 +1,22 @@
 
+<div class="transactions-wrapper">
 
+    <h2>All transactions</h2>
 
-<h2>All transactions</h2>
+    <% @transactions.each do |date, transactions| %>
+        <div class='transaction_date'><%=date%></div>
 
-<% @transactions.each do |date, transactions| %>
-    <div class='transaction_date'><%=date%></div>
+        <%transactions.each do |transaction|%>
+            <div class='transaction-row'>
+                <div class="transactions-col-1"><%=transaction.merchant.name()%></div>
+                <div class="transactions-col-3">£<%=transaction.amount_pretty()%></div>
+                <div class="transactions-col-2">
+                    <img class="transaction-list-icon" src="/<%=transaction.category.icon()%>"/>
+                </div> 
+            </div>
+            ---------------------------------------------------
+        <%end %>
 
-    <%transactions.each do |transaction|%>
-        <div class='transaction-row'>
-            <div class="transactions-col-1"><%=transaction.merchant.name()%></div>
-            <div class="transactions-col-3">£<%=transaction.amount_pretty()%></div>
-            <div class="transactions-col-2">
-                <img class="transaction-list-icon" src="/<%=transaction.category.icon()%>"/>
-            </div> 
-        </div>
-        ---------------------------------------------------
     <%end %>
 
-<%end %>
-
+</div>

@@ -22,23 +22,26 @@
 
 
 
-<div class="dash_module">
+<div class="dash_module-line">
+    <figcaption class= "line-graph-fig">Your month so far</figcaption>
     <figure>
-        
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="chart">
         
-        <polyline
-            fill="none"
-            stroke="#0074d9"
-            vector-effect="non-scaling-stroke"
-            stroke-width="2"
-            points="
-            <%@line_graph_coords.each do |coord_pair|%>
-            <%=coord_pair[0]%>,<%=coord_pair[1] %>
-            <%end%>
-                "
-        />
+            <polyline
+                fill="none"
+                stroke="#E27396"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                vector-effect="non-scaling-stroke"
+                stroke-width="4"
+                points="
+                <%@line_graph_coords.each do |coord_pair|%>
+                <%=coord_pair[0]%>,<%=coord_pair[1] %>
+                <%end%>
+                    "
+            />
         
         </svg>
+        
     </figure> 
 </div>
