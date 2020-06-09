@@ -1,6 +1,6 @@
 
 <h2>New transaction</h2>
-<form method="POST" action="/transactions">
+<form class="new-transaction-form" method="POST" action="/transactions">
 
     <div class="form-amount">
       <input type="number" name="amount" placeholder="Amount" id="amount"/>
@@ -14,15 +14,14 @@
     <div class="form-categories-container">
         <%@categories.each do |category|%>
             <label class="labl" for="<%=category.name%>">
-              <input type="radio" id="<%=category.name%>" name="category_id" value="<%=category.id%>">
+              <input type="radio" id="<%=category.name%>" name="category_id" value="<%=category.id%>"/>
               <div class= "category-container-picker">
-                <div class= "category-image-container-picker">
+                <div style = "background: <%=category.css_colour_1()%>" class= "category-image-container-picker">
                   <img class="transaction-list-icon" src="/<%=category.icon()%>"/>
                 </div>
                 <span><%=category.name%></span>
-              <div>
-              
-            </label><br>
+              </div>
+            </label>
         <%end %>
     </div>
 
