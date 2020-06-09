@@ -5,6 +5,7 @@ require_relative('./category')
 require_relative('./merchant')
 require_relative('./fake_today')
 
+
 class User
 
     attr_reader :id, :first_name, :last_name, :savings_goal, :monthly_income, :email 
@@ -79,6 +80,25 @@ class User
         return retrieved_transaction_objects
     end
 
+    def transactions_by_month__excluding_bills(month_number)
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transactions.category_id <> $2 AND EXTRACT( MONTH FROM transactions.transaction_date) = $3 ORDER BY transactions.transaction_date DESC"
+        values = [@id, 8 ,month_number]    #warning hardcoding the category id, in the future, the categories won't be editable by user.
+        retrieved_transactions = SqlRunner.run(sql, values)
+        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
+        return retrieved_transaction_objects
+    end
+
+    def spending_current_month_excluding_bills()
+        transactions_arr = transactions_by_month__excluding_bills(FakeToday.now().month())
+        return sum_transactions(transactions_arr)
+    end
+
+    def daily_burn_rate_current_month_excluding_bills()
+        spent = spending_current_month_excluding_bills()
+        days_so_far = days_so_far_in_month()
+        return spent/days_so_far
+    end
+
     def categories()
         sql = "SELECT categories.* FROM categories
             INNER JOIN transactions ON transactions.category_id = categories.id
@@ -130,7 +150,7 @@ class User
     end
 
     def days_so_far_in_month()
-        days_so_far = current_date.day()
+        days_so_far = FakeToday.now.day()
         return days_so_far
     end
 
@@ -149,6 +169,11 @@ class User
         return transaction_amounts.inject{|sum, transaction| sum + transaction}
     end
 
+    def total_spent_this_month()
+        transaction_arr = transactions_by_month(FakeToday.now().month())
+        return sum_transactions(transaction_arr)
+    end
+
 
 
 
@@ -160,7 +185,7 @@ class User
         first_day_this_month = Date.parse("#{year}-#{month}-1") 
 
 
-        this_months_transactions = get_date_range_transactions_including_bills(first_day_this_month, current_date)
+        this_months_transactions = get_date_range_transactions_including_bills(first_day_this_month, current_date+1)
 
         amount_spent_so_far = sum_transactions(this_months_transactions)
 
@@ -191,7 +216,7 @@ class User
       
         last_date_in_range = Date.parse("#{year}-#{last_month}-#{end_day}") 
         
-        last_months_transactions = get_date_range_transactions_including_bills(first_day_last_month, last_date_in_range)
+        last_months_transactions = get_date_range_transactions_including_bills(first_day_last_month, last_date_in_range+1)
 
         amount_spent_this_time_last_month = sum_transactions(last_months_transactions)
 

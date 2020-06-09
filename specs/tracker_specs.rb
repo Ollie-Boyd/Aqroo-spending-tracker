@@ -18,7 +18,11 @@ year = current_date.year()
 month = current_date.month()
 first_day_this_month = Date.parse("#{year}-#{month}-1")
 
-user_charlie.create_hash_of_days_in_month_so_far()
+p user_charlie.total_spent_this_month()
+p user_charlie.savings_goal()
+p user_charlie.transactions_by_month__excluding_bills(6)
+p user_charlie.spending_current_month_excluding_bills()
+p user_charlie.daily_burn_rate_current_month_excluding_bills()
 
 
 

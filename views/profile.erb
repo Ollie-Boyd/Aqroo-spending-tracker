@@ -10,7 +10,7 @@ Email: <%=@user.email()%> <br>
 
 <% @merchants.each do |merchant|  %>
 
-    <%=merchant.name%> <a href="/merchants/<%=merchant.id%>/edit">Edit</a><br>
+    <%=merchant.name%> <a href="/merchants/<%=merchant.id%>/edit">Edit</a><br><br>
 
 <% end %>
 
@@ -18,6 +18,6 @@ Email: <%=@user.email()%> <br>
 
 <% @categories.each do |category|  %>
 
-    <%=category.name%> <a href="/categories/<%=category.id%>/edit">Edit</a><br>
+    <%=category.name%> <a href="/categories/<%=category.id%>/edit">Edit</a><br><br>
 
 <% end %>
