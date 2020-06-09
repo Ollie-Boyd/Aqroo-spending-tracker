@@ -7,7 +7,7 @@ require_relative('./user')
 
 class Category
 
-    attr_reader :id, :name, :icon, :css_colour
+    attr_reader :id, :name, :icon, :css_colour_1, :css_colour_2
     
     def initialize(options)
         @id = options['id'].to_i if options['id']

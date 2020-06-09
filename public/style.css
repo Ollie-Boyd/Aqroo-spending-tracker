@@ -15,7 +15,7 @@
 
     .title-container{height: 110px;}
 
-    .profile-logo-container {width: 40px; height: 40px;}
+    .profile-logo-container {width: 55px; height: 55px;}
     
     .nav-title {font-size: 15px; }
 
@@ -280,6 +280,17 @@ figure {margin: 0px; width: 80%; height: 75%}
     align-items: flex-start;
     width: 100%;  
     box-sizing: border-box;
+  }
+
+  .transaction_date{
+    width: 30%;
+    background: #ffee81;
+    text-align: center;
+    color: #3d718a;
+    box-shadow: .1rem .20rem .25rem 0 rgba(100,110,140,.2);
+    margin-bottom: 2px;
+    margin-top: 5px;
+    border-radius: 5px;
   }
 
   .transaction-row {

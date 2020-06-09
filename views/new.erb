@@ -2,24 +2,24 @@
 <h2>New transaction</h2>
 <form method="POST" action="/transactions">
 
-    <div class="form-new">
+    <div class="form-amount">
       <label for="amount">Amount</label>
       <input type="number" name="amount" id="amount"/>
     </div>
 
-    <div class="form-new">
+    <div class="form-date">
       <label for="date">Date</label>
       <input type="date" name="transaction_date" id="transaction_date"/>
     </div>
 
-    <div class="form-new">
+    <div class="form-categories-container">
         <%@categories.each do |category|%>
             <input type="radio" id="<%=category.name%>" name="category_id" value="<%=category.id%>">
             <label for="<%=category.name%>"><%=category.name%></label><br>
         <%end %>
     </div>
 
-    <div class="form-new">
+    <div class="form-merchant">
         <input type="text" list="listofmerchants" name="merchant_id" placeholder="Merchant" class="autocomplete">
         <datalist id="listofmerchants">
             <%@merchants.each do |merchant|%>
