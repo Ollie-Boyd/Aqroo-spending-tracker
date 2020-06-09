@@ -287,18 +287,34 @@ figure {margin: 0px; width: 80%; height: 75%}
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    height: 40px
+    height: 50px;
+    background-color: #FEE440;
+    
   }
 
   .transactions-col-1 {
-    width: 80%;
+    width: 70%; 
   }
 
   .transactions-col-2 {
-    width: 10%;
+    width: 50px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 50%;
+    box-shadow: .1rem .40rem .45rem 0 rgba(100,110,140,.4);
+    background: #ff30b3;
   }
 
 
   .transactions-col-3 {
-    width: 10%;
+    width: 20%;
+    
+  }
+
+  .transaction-list-icon {
+    height: 70%;
+    width: auto;
   }
