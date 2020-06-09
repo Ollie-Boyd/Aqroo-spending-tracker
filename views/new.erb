@@ -3,19 +3,26 @@
 <form method="POST" action="/transactions">
 
     <div class="form-amount">
-      <label for="amount">Amount</label>
-      <input type="number" name="amount" id="amount"/>
+      <input type="number" name="amount" placeholder="Amount" id="amount"/>
     </div>
 
     <div class="form-date">
-      <label for="date">Date</label>
+      
       <input type="date" name="transaction_date" id="transaction_date"/>
     </div>
 
     <div class="form-categories-container">
         <%@categories.each do |category|%>
-            <input type="radio" id="<%=category.name%>" name="category_id" value="<%=category.id%>">
-            <label for="<%=category.name%>"><%=category.name%></label><br>
+            <label class="labl" for="<%=category.name%>">
+              <input type="radio" id="<%=category.name%>" name="category_id" value="<%=category.id%>">
+              <div class= "category-container-picker">
+                <div class= "category-image-container-picker">
+                  <img class="transaction-list-icon" src="/<%=category.icon()%>"/>
+                </div>
+                <span><%=category.name%></span>
+              <div>
+              
+            </label><br>
         <%end %>
     </div>
 

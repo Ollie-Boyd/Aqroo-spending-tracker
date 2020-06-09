@@ -102,10 +102,12 @@ class User
     def transactions_grouped_by_date(month=false) #takes an optional month parameter if we want a specific month
             user_transactions = transactions()
             user_transactions = transactions_by_month(month) if month.is_a? Integer
-            user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.date_pretty()}
+            user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}
 
             return user_transactions_grouped_hash
     end
+
+    
 
 
     def savings_goal_pretty()

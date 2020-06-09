@@ -29,11 +29,11 @@ class Transaction
         return sprintf "%.2f",@amount
     end
 
-    def date_pretty()
-        if @transaction_date.year == FakeToday.now().year
-            return @transaction_date.strftime("%d %B") 
+    def self.date_pretty(date_object)
+        if date_object.year == FakeToday.now().year
+            return date_object.strftime("%d %B") 
         else 
-            return @transaction_date.strftime("%d %B %Y") 
+            return date_object.strftime("%d %B %Y") 
         end
     end
 

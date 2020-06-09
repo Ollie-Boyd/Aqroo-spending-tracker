@@ -268,10 +268,84 @@ figure {margin: 0px; width: 80%; height: 75%}
 }
 
 
+
+ /**************************************
+  FORM STYLE
+  ***************************************/
+
+
+
+input[type=text] {
+  padding:10px;
+  border-radius:10px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  width: 100%
+}
+input[type=number] {
+  padding:10px;
+  border-radius:10px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  width: 100%
+}
+
+input[type=submit] {
+  padding:10px;
+  border-radius:10px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  width: 100%
+}
+
+input[type=date] {
+  padding:10px;
+  border-radius:10px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  width: 100%
+}
+
+form{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+}
+
+.form-amount{
+  width: 100%;
+}
+
+.form-date{
+  width: 100%;
+}
+
+.form-merchant{
+  width: 100%;
+}
+
+.form-categories-container{
+  width: 100%;
+}
+
+.category-container-picker{
+  
+}
+
  /**************************************
   TRANSACTIONS STYLE
   ***************************************/
 
+
+  .transactions-header {
+    border-bottom: 8px solid #e27396;
+    color: #3b6173;
+    font-size: calc(10px + 2vw);
+    margin-bottom: 20px;
+  }
+  
   .transactions-wrapper {
     margin: 0 auto 0 auto;
     display: flex;

@@ -1,10 +1,10 @@
 
 <div class="transactions-wrapper">
 
-    <span class="transaction-header">All transactions</span>
+    <span class="transactions-header">All transactions</span>
 
     <% @transactions.each do |date, transactions| %>
-        <div class='transaction_date'><%=date%></div>
+        <div class='transaction_date'><%=Transaction.date_pretty(date)%></div>
 
         <%transactions.each do |transaction|%>
             <div class='transaction-row'>
