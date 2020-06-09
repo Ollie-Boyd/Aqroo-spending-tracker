@@ -10,14 +10,14 @@ require_relative('../models/merchant')
 user_charlie = User.new({'first_name' => 'Charlie', 'last_name' => 'Watson', 'savings_goal' => 40.01, 'monthly_income' =>1500.50, 'email' => 'ollie@boyd.co.uk' })
 user_charlie.save()
 
-category_eating_out = Category.new({'name' => 'Eating out', 'icon' => 'eating_out.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
-category_entertainment = Category.new({'name' => 'Entertainment', 'icon' => 'entertainment.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
-category_general = Category.new({'name' => 'General', 'icon' => 'general.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
-category_shopping = Category.new({'name' => 'Shopping', 'icon' => 'shopping.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
-category_holidays = Category.new({'name' => 'Holidays', 'icon' => 'holidays.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
-category_groceries = Category.new({'name' => 'Groceries', 'icon' => 'groceries.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
-category_transport = Category.new({'name' => 'Transport', 'icon' => 'transport.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
-category_bills = Category.new({'name' => 'Bills', 'icon' => 'bills.svg', 'css_colour_1' => '#f5d451', 'css_colour_2' => '#40fff6'})
+category_eating_out = Category.new({'name' => 'Eating out', 'icon' => 'eating-out.svg', 'css_colour_1' => '#FF88DC', 'css_colour_2' => '#40fff6'})
+category_entertainment = Category.new({'name' => 'Entertainment', 'icon' => 'entertainment.svg', 'css_colour_1' => '#72DDF7', 'css_colour_2' => '#40fff6'})
+category_general = Category.new({'name' => 'General', 'icon' => 'general.svg', 'css_colour_1' => '#FEE440', 'css_colour_2' => '#40fff6'})
+category_shopping = Category.new({'name' => 'Shopping', 'icon' => 'shopping.svg', 'css_colour_1' => '#68EDC6', 'css_colour_2' => '#40fff6'})
+category_holidays = Category.new({'name' => 'Holidays', 'icon' => 'holidays.svg', 'css_colour_1' => '#FF6164', 'css_colour_2' => '#40fff6'})
+category_groceries = Category.new({'name' => 'Groceries', 'icon' => 'groceries.svg', 'css_colour_1' => '#B0FF92', 'css_colour_2' => '#40fff6'})
+category_transport = Category.new({'name' => 'Transport', 'icon' => 'transport.svg', 'css_colour_1' => '#F00067', 'css_colour_2' => '#40fff6'})
+category_bills = Category.new({'name' => 'Bills', 'icon' => 'bills.svg', 'css_colour_1' => '#CECAFF', 'css_colour_2' => '#40fff6'})
 
 category_eating_out.save() #1
 category_entertainment.save() #2
