@@ -278,8 +278,7 @@ figure {margin: 0px; width: 80%; height: 75%}
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 100%;
-  
+    width: 100%;  
   }
 
   .transaction-row {
@@ -288,4 +287,18 @@ figure {margin: 0px; width: 80%; height: 75%}
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    height: 40px
+  }
+
+  .transactions-col-1 {
+    width: 80%;
+  }
+
+  .transactions-col-2 {
+    width: 10%;
+  }
+
+
+  .transactions-col-3 {
+    width: 10%;
   }
