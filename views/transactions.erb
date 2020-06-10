@@ -1,7 +1,24 @@
 
 <div class="transactions-wrapper">
 
-    <span class="transactions-header">All transactions</span>
+    <div class = "transactions-header-wrapper">
+        <span class="transactions-header">All transactions</span>
+        <div class= "transactions-header-filter-wrapper">
+            <form class="new-transaction-form" method="POST" action="/transactions/filter">
+                <select id="month" name="month">
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                </select>
+                 <select id="year" name="year">
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                </select>
+                <div class="filter-submit">
+                    <input type="image" src="/funnel.svg" alt="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
 
     <% @transactions.each do |date, transactions| %>
         <div class='transaction_date'><%=Transaction.date_pretty(date)%></div>

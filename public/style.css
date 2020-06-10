@@ -55,13 +55,6 @@
     flex-direction: column;
   }
 
-   
-       
-        
-        
-        
-  
-
 
   /**************************************
   TITLE STYLE
@@ -124,7 +117,6 @@ nav {
     align-items: center;
     color: inherit;
     text-decoration: none;
-
 }
 
 .dashboard-circle{
@@ -166,15 +158,10 @@ nav {
 .layout-logo {
     width:auto;
     height: 70%;
-  /* filter: invert(16%) sepia(4%) saturate(1056%) hue-rotate(151deg) brightness(100%) contrast(87%); */
-
 }
 
-
-
 .nav-title {
-    margin-top: 5px;
-    
+    margin-top: 5px;  
 }
 
 .main {
@@ -185,7 +172,6 @@ nav {
     align-items: center;
     min-height: 1000px;
 }
-
 
   /**************************************
   Graphs STYLE
@@ -316,7 +302,7 @@ figure {margin: 0px; width: 80%; height: 75%}
 
 
  /**************************************
-  FORM STYLE
+  NEW TRANSACTION FORM STYLE
   ***************************************/
 .new-transaction-header {
   border-bottom: 8px solid #FEE440;
@@ -346,7 +332,9 @@ input[type=number] {
   width: 100%;
   box-sizing:border-box;
   font-size: 18px;
-  font: inherit
+  font: inherit;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100%' width='100%'><text x='2' y='13' fill='gray' font-size='12' font-family='arial'>$</text></svg>");
+  background-repeat: no-repeat;
 }
 
 input[type=submit] {
@@ -359,7 +347,8 @@ input[type=submit] {
   background: #fee440;
   font-size: 18px;
   font-weight: bold;
-  font: inherit
+  font: inherit;
+  cursor:pointer;
 
 }
 
@@ -458,7 +447,6 @@ form{
  /**************************************
   TRANSACTIONS STYLE
   ***************************************/
-
 
   .transactions-header {
     border-bottom: 8px solid #e27396;

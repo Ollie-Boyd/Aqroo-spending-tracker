@@ -8,7 +8,12 @@ require_relative('./fake_today')
 
 class User
 
-    attr_reader :id, :first_name, :last_name, :savings_goal, :monthly_income, :email 
+    attr_reader :id, :first_name, :last_name, :savings_goal, :monthly_income, :email
+
+    @@current_date = FakeToday.now()
+    @@current_day = FakeToday.now.day()
+    @@current_month = FakeToday.now.month()
+    @@current_year = FakeToday.now.year()
 
     def initialize(options)
         @id = options['id'].to_i if options['id']
@@ -72,8 +77,6 @@ class User
         return retrieved_transaction_objects
     end
 
-
-
     def daily_burn_rate_current_month_excluding_bills()
         spent = spending_current_month_excluding_bills()
         days_so_far = days_so_far_in_month()
@@ -110,11 +113,9 @@ class User
     end
     
     def spending_current_month_excluding_bills()
-        current_date = FakeToday.now() 
-        year = current_date.year()
-        month = current_date.month()
-        from = first_day_in_month(month, year)
-        to = last_day_in_month(month, year)
+       
+        from = first_day_in_month(@@current_month, @@current_year)
+        to = last_day_in_month(@@current_month, @@current_year)
 
         transactions_arr = get_date_range_transactions_excluding_bills(from, to)
         return sum_transactions(transactions_arr)
@@ -122,7 +123,7 @@ class User
 
     def transactions_grouped_by_date__all_time() #takes an optional month & year parameter if we want a specific month #need to fix to include year duh!!
         user_transactions = transactions()
-        user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}
+        user_transactions_grouped_hash = group_transactions_by_date(user_transactions)
         user_transactions_grouped_hash_sorted = user_transactions_grouped_hash.each{ |_,arr| arr.sort_by{|arr| arr.timestamp()} }
         return user_transactions_grouped_hash
     end
@@ -137,7 +138,7 @@ class User
         from = first_day_in_month(month, year)
         to = last_day_in_month(month, year)
         user_transactions = get_date_range_transactions_including_bills(from, to) 
-        user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}
+        user_transactions_grouped_hash = group_transactions_by_date(user_transactions)
         user_transactions_grouped_hash_sorted = user_transactions_grouped_hash.each{ |_,arr| arr.sort_by{|arr| arr.timestamp()} }
         return user_transactions_grouped_hash
     end
@@ -160,13 +161,11 @@ class User
     end
 
     def spending_as_percentage_of_income__current_month()
-        current_date = FakeToday.now() 
-        year = current_date.year()
-        month = current_date.month()
-        first_day_in_month = first_day_in_month(month, year)
+        
+        first_day_in_month = first_day_in_month(@@current_month, @@current_year)
 
 
-        this_months_transactions = get_date_range_transactions_including_bills(first_day_in_month, current_date)
+        this_months_transactions = get_date_range_transactions_including_bills(first_day_in_month, @@current_date)
 
         amount_spent_so_far = sum_transactions(this_months_transactions)
 
@@ -177,16 +176,11 @@ class User
     end
 
     def total_spent_this_month()
-        current_date = FakeToday.now() 
-        year = current_date.year()
-        month = current_date.month()
-        from = first_day_in_month(month, year)
-        to = last_day_in_month(month, year)
-
+        from = first_day_in_month(@@current_month, @@current_year)
+        to = last_day_in_month(@@current_month, @@current_year)
         transaction_arr = get_date_range_transactions_including_bills(from, to)
         return sum_transactions(transaction_arr)
     end
-
 
     def savings_goal_pretty()
         return sprintf "%.2f",@savings_goal
@@ -226,19 +220,17 @@ class User
     end
 
     def spending_as_percentage_of_income__same_day_last_month()
-        current_date = FakeToday.now() 
-        day = current_date.day() 
-        year = current_date.year()
-        last_month = current_date.month()-1
-        first_day_last_month = Date.parse("#{year}-#{last_month}-1") 
+        one_month_ago = @@current_date <<  1
+        one_month_ago_year = one_month_ago.year()
+        one_month_ago_month = one_month_ago.month()
+        first_day_last_month = Date.parse("#{one_month_ago_year}-#{one_month_ago_month}-1") 
 
-
-        total_days_last_month = total_days_in_month(last_month, year)
+        total_days_last_month = total_days_in_month(one_month_ago_month, one_month_ago_year)
 
         #we don't want to tip into the next month's spending if the current month's number of calendar days is more than exist in this previous month. ie if this month has 31 days and last had 28
-        end_day = day > total_days_last_month ? (total_days_last_month) : (day)
+        end_day = @@current_day > total_days_last_month ? (total_days_last_month) : (@@current_day)
       
-        last_date_in_range = Date.parse("#{year}-#{last_month}-#{end_day}") 
+        last_date_in_range = Date.parse("#{one_month_ago_year}-#{one_month_ago_month}-#{end_day}") 
         
         last_months_transactions = get_date_range_transactions_including_bills(first_day_last_month, last_date_in_range)
 
@@ -250,15 +242,12 @@ class User
     end
 
     def get_x_y_graph_coords() 
-        current_date = FakeToday.now() #refactor
-        day = current_date.day() 
-        year = current_date.year()
-        month = current_date.month()
-        first_day_in_month = Date.parse("#{year}-#{month}-1") 
-        array_of_dates = (first_day_in_month..current_date).to_a
+        first_day_in_month = Date.parse("#{@@current_year}-#{@@current_month}-1") 
+        array_of_dates = (first_day_in_month..@@current_date).to_a
         hash_of_dates = array_of_dates.map{ |date| [ date, [0] ] }.to_h
+
         
-        this_months_transactions = transactions_grouped_by_date(month, year) 
+        this_months_transactions = transactions_grouped_by_date(@@current_month, @@current_year) 
 
         combined_hashes_with_spending = hash_of_dates.merge(this_months_transactions){|key, blank_arr, transactions| [blank_arr, transactions.map{|transaction| transaction.amount()}].flatten}  #refactor to make readable
         array_with_spending = combined_hashes_with_spending.map{|k,v| v }
@@ -268,21 +257,28 @@ class User
         array_with_summed_spending_as_percent_of_monthly_salary = array_with_summed_spending.map{|spend| spend/@monthly_income * 100 }
         
         starting_graph_percentage_y_axis = 0
-        y_axis_reducing_value = array_with_summed_spending_as_percent_of_monthly_salary.map{|day_spend| starting_graph_percentage_y_axis+=day_spend}
+        y_axis_increasing_value = array_with_summed_spending_as_percent_of_monthly_salary.map{|day_spend| starting_graph_percentage_y_axis+=day_spend}
         
-        days_in_month = total_days_in_month(month, year)
+        days_in_month = total_days_in_month(@@current_month, @@current_year)
 
-        days_as_percentage = (100.0/days_in_month).round(4)
+        days_as_percentage_along_x_axis = (100.0/days_in_month).round(4)
 
-        day_percentages_as_arr = days_as_percentage.step(by: days_as_percentage).take(day)
+        day_percentages_as_arr = days_as_percentage_along_x_axis.step(by: days_as_percentage_along_x_axis).take(@@current_day)
         
-        combined_x_y_percentages = day_percentages_as_arr.zip(y_axis_reducing_value)
+        combined_x_y_percentages = day_percentages_as_arr.zip(y_axis_increasing_value)
         
-       return combined_x_y_percentages.prepend([0.0,0.0])
-
+        return combined_x_y_percentages.prepend([0.0,0.0])
     end
 
+    def array_of_prev_months()
+        date_to = @@current_date
+        date_from = @@current_date << 11
+        date_range = date_from..date_to        
+        arr_months = date_range.map {|d| d.strftime "%B"}.uniq
+    end
 
-
-
+    def array_of_prev_years()
+        earliest_transaction_year = transactions().map{|transaction| transaction.transaction_date().year()}.min()       
+        return (earliest_transaction_year..@@current_year).to_a
+    end
 end

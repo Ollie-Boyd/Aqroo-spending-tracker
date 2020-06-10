@@ -21,3 +21,10 @@ Email: <%=@user.email()%> <br>
     <%=category.name%> <a href="/categories/<%=category.id%>/edit">Edit</a><br><br>
 
 <% end %>
+
+<h2>New category</h2>
+
+<form method="POST" action="/categories">
+        <input type="text" name="name" id="name"/>
+        <input type="submit" value="submit new category"/>
+<form>

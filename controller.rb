@@ -15,6 +15,8 @@ user = User.find_by_id(1)
 
 get '/transactions' do
     @transactions = user.transactions_grouped_by_date__all_time()
+    @years = user.array_of_prev_years()
+    @months = user.array_of_prev_months()
     erb( :transactions)
 end
 
@@ -24,14 +26,26 @@ get '/transactions/new' do
     erb( :new)
 end
 
+get '/transactions/:month/:year' do
+    @transactions = user.transactions_grouped_by_date(params['month'].to_i, params['year'].to_i)
+    @years = user.array_of_prev_years()
+    @months = user.array_of_prev_months()
+    erb( :transactions)
+end
+
+post '/transactions/filter' do
+    month = params['month']
+    year = params['year']
+    redirect "/transactions/#{month}/#{year}"
+end
+
 post '/transactions' do
-    merchant_id = user.check_merchant(params[:merchant_id])
+    merchant_id = user.check_merchant(params[merchant_id])
     transaction_hash = {'user_id' => user.id ,'transaction_date' => params[:transaction_date], 'merchant_id' => merchant_id, 'category_id' => params[:category_id], 'amount' => params[:amount]}
     transaction = Transaction.new(transaction_hash)
     transaction.save()
     redirect '/transactions'
 end
-
 
 get '/profile' do
     @user = user
@@ -57,6 +71,13 @@ end
 
 post '/categories/:id' do
     Category.new(params).update()   
+    redirect '/profile'
+end
+
+
+post '/categories' do
+    category = Category.new(params)
+    category.save()
     redirect '/profile'
 end
 
