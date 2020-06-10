@@ -72,26 +72,7 @@ class User
         return retrieved_transaction_objects
     end
 
-    def transactions_by_month(month_number)
-        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND EXTRACT( MONTH FROM transactions.transaction_date) = $2 ORDER BY transactions.transaction_date DESC"
-        values = [@id, month_number]
-        retrieved_transactions = SqlRunner.run(sql, values)
-        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
-        return retrieved_transaction_objects
-    end
 
-    def transactions_by_month__excluding_bills(month_number)
-        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transactions.category_id <> $2 AND EXTRACT( MONTH FROM transactions.transaction_date) = $3 ORDER BY transactions.transaction_date DESC"
-        values = [@id, 8 ,month_number]    #warning hardcoding the category id, in the future, the categories won't be editable by user.
-        retrieved_transactions = SqlRunner.run(sql, values)
-        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
-        return retrieved_transaction_objects
-    end
-
-    def spending_current_month_excluding_bills()
-        transactions_arr = transactions_by_month__excluding_bills(FakeToday.now().month())
-        return sum_transactions(transactions_arr)
-    end
 
     def daily_burn_rate_current_month_excluding_bills()
         spent = spending_current_month_excluding_bills()
@@ -119,6 +100,32 @@ class User
         return retrieved_category_objects
     end
 
+
+    # **********************************************************
+    # METHODS RETRIEVING USER TRANSACTIONS BY DATE
+    # **********************************************************
+
+    def transactions_by_month(month_number)
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND EXTRACT( MONTH FROM transactions.transaction_date) = $2 ORDER BY transactions.transaction_date DESC"
+        values = [@id, month_number]
+        retrieved_transactions = SqlRunner.run(sql, values)
+        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
+        return retrieved_transaction_objects
+    end
+
+    def transactions_by_month__excluding_bills(month_number)
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transactions.category_id <> $2 AND EXTRACT( MONTH FROM transactions.transaction_date) = $3 ORDER BY transactions.transaction_date DESC"
+        values = [@id, 8 ,month_number]    #warning hardcoding the category id, in the future, the categories won't be editable by user.
+        retrieved_transactions = SqlRunner.run(sql, values)
+        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
+        return retrieved_transaction_objects
+    end
+    
+    def spending_current_month_excluding_bills()
+        transactions_arr = transactions_by_month__excluding_bills(FakeToday.now().month())
+        return sum_transactions(transactions_arr)
+    end
+
     def transactions_grouped_by_date(month=false) #takes an optional month parameter if we want a specific month #need to fix to include year duh!!
         user_transactions = transactions()
         user_transactions = transactions_by_month(month) if month.is_a? Integer
@@ -126,6 +133,47 @@ class User
         user_transactions_grouped_hash_sorted = user_transactions_grouped_hash.each{ |_,arr| arr.sort_by{|arr| arr.timestamp()} }
         return user_transactions_grouped_hash
     end
+
+    def get_date_range_transactions_including_bills(from, to)
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transaction_date >= $2 AND transaction_date <  $3 ORDER BY transactions.transaction_date DESC"
+        values = [@id, from, to]
+        retrieved_transactions = SqlRunner.run(sql, values)
+        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
+        return retrieved_transaction_objects
+    end
+
+    def spending_as_percentage_of_income__current_month()
+        current_date = FakeToday.now() 
+        year = current_date.year()
+        month = current_date.month()
+        first_day_this_month = Date.parse("#{year}-#{month}-1") 
+
+
+        this_months_transactions = get_date_range_transactions_including_bills(first_day_this_month, current_date)
+
+        amount_spent_so_far = sum_transactions(this_months_transactions)
+
+        income = @monthly_income
+
+        return percentage = amount_spent_so_far/income * 100
+
+    end
+
+    def total_spent_this_month()
+        transaction_arr = transactions_by_month(FakeToday.now().month())
+        return sum_transactions(transaction_arr)
+    end
+
+
+    # **********************************************************
+    # **********************************************************
+    # **********************************************************
+
+
+
+
+
+
 
     def savings_goal_pretty()
         return sprintf "%.2f",@savings_goal
@@ -151,44 +199,10 @@ class User
         return days_so_far
     end
 
-
-    def get_date_range_transactions_including_bills(from, to)
-        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transaction_date >= $2 AND transaction_date <  $3 ORDER BY transactions.transaction_date DESC"
-        values = [@id, from, to]
-        retrieved_transactions = SqlRunner.run(sql, values)
-        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
-        return retrieved_transaction_objects
-    end
-
-
     def sum_transactions(transaction_arr)
         transaction_amounts= transaction_arr.map{|transaction| transaction.amount()}
         return transaction_amounts.inject{|sum, transaction| sum + transaction}
     end
-
-    def total_spent_this_month()
-        transaction_arr = transactions_by_month(FakeToday.now().month())
-        return sum_transactions(transaction_arr)
-    end
-
-
-    def spending_as_percentage_of_income__current_month()
-        current_date = FakeToday.now() 
-        year = current_date.year()
-        month = current_date.month()
-        first_day_this_month = Date.parse("#{year}-#{month}-1") 
-
-
-        this_months_transactions = get_date_range_transactions_including_bills(first_day_this_month, current_date+1)
-
-        amount_spent_so_far = sum_transactions(this_months_transactions)
-
-        income = @monthly_income
-
-        return percentage = amount_spent_so_far/income * 100
-
-    end
-
 
     def total_days_in_month(year, month)
         Date.new(year, month, -1).day
@@ -197,7 +211,6 @@ class User
     def days_remaining_in_month()
         return total_days_in_month(FakeToday.now.year, FakeToday.now.month)-days_so_far_in_month()
     end
-
 
     def spending_as_percentage_of_income__same_day_last_month()
         current_date = FakeToday.now() 
@@ -214,7 +227,7 @@ class User
       
         last_date_in_range = Date.parse("#{year}-#{last_month}-#{end_day}") 
         
-        last_months_transactions = get_date_range_transactions_including_bills(first_day_last_month, last_date_in_range+1)
+        last_months_transactions = get_date_range_transactions_including_bills(first_day_last_month, last_date_in_range)
 
         amount_spent_this_time_last_month = sum_transactions(last_months_transactions)
 
@@ -232,7 +245,7 @@ class User
         array_of_dates = (first_day_this_month..current_date).to_a
         hash_of_dates = array_of_dates.map{ |date| [ date, [0] ] }.to_h
         
-        this_months_transactions = transactions_grouped_by_date(month)
+        this_months_transactions = transactions_grouped_by_date(month) ######## problem
 
         combined_hashes_with_spending = hash_of_dates.merge(this_months_transactions){|key, blank_arr, transactions| [blank_arr, transactions.map{|transaction| transaction.amount()}].flatten}  #refactor to make readable
         array_with_spending = combined_hashes_with_spending.map{|k,v| v }
