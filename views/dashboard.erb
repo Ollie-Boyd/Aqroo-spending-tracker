@@ -20,7 +20,42 @@
     </figure> 
 </div>
 
-
+<div class="dash_module-stats">
+    <div class="dash-module-stats-box">
+        <div class="stats-box-title">
+            Spent this month
+        </div>
+        <div class="stats-box-stat">
+            £<%=@total_spend_this_month%>
+        </div>
+    </div>
+    <div class="dash-module-stats-box" style = "border-left: 4px solid #80808052;">
+        <div class="stats-box-title">
+            Days until payday
+        </div>
+        <div class="stats-box-stat">
+            <%=@days_remaining_in_month%>
+        </div>
+    </div>
+    <div class="dash-module-stats-box" style = "border-top: 4px solid #80808052;">
+        <div class="stats-box-title">
+            Daily burn rate
+        </div>
+        <div class="stats-box-stat">
+            £<%=@burn_rate%> per day
+        </div>
+    </div>
+    <div class="dash-module-stats-box" style = "border-left: 4px solid #80808052; border-top: 4px solid #80808052;">
+        <div class="stats-box-title">
+            Your savings goal
+        </div>
+        <div class="stats-box-stat">
+            £<%=@savings_goal%>
+        </div>
+    </div>
+    
+   
+</div>
 
 <div class="dash_module-line">
     <figcaption class= "line-graph-fig">Your month so far</figcaption>

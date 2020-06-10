@@ -119,16 +119,13 @@ class User
         return retrieved_category_objects
     end
 
-    def transactions_grouped_by_date(month=false) #takes an optional month parameter if we want a specific month
-            user_transactions = transactions()
-            user_transactions = transactions_by_month(month) if month.is_a? Integer
-            user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}
-
-            return user_transactions_grouped_hash
+    def transactions_grouped_by_date(month=false) #takes an optional month parameter if we want a specific month #need to fix to include year duh!!
+        user_transactions = transactions()
+        user_transactions = transactions_by_month(month) if month.is_a? Integer
+        user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}
+        user_transactions_grouped_hash_sorted = user_transactions_grouped_hash.each{ |_,arr| arr.sort_by{|arr| arr.timestamp()} }
+        return user_transactions_grouped_hash
     end
-
-    
-
 
     def savings_goal_pretty()
         return sprintf "%.2f",@savings_goal
@@ -175,9 +172,6 @@ class User
     end
 
 
-
-
-
     def spending_as_percentage_of_income__current_month()
         current_date = FakeToday.now() 
         year = current_date.year()
@@ -198,6 +192,10 @@ class User
 
     def total_days_in_month(year, month)
         Date.new(year, month, -1).day
+    end
+
+    def days_remaining_in_month()
+        return total_days_in_month(FakeToday.now.year, FakeToday.now.month)-days_so_far_in_month()
     end
 
 

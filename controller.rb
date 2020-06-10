@@ -63,6 +63,11 @@ end
 get '/dashboard' do
     @this_month_percentage_spent = user.spending_as_percentage_of_income__current_month()
     @this_time_last_month_percentage_spent = user.spending_as_percentage_of_income__same_day_last_month()
-    @line_graph_coords = user.get_x_y_graph_coords() 
+    @line_graph_coords = user.get_x_y_graph_coords()
+    @total_spend_this_month = user.total_spent_this_month().to_i
+    @days_remaining_in_month = user.days_remaining_in_month().to_i
+    @burn_rate = user.daily_burn_rate_current_month_excluding_bills().to_i
+    @savings_goal = user.savings_goal().to_i
+
     erb(:dashboard)
 end

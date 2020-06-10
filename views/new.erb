@@ -3,18 +3,18 @@
 <form class="new-transaction-form" method="POST" action="/transactions">
 
     <div class="form-amount">
-      <input type="number" name="amount" placeholder="Amount" id="amount"/>
+      <input type="number" name="amount" style = "text-align: center" placeholder="Amount" id="amount" required/>
     </div>
 
     <div class="form-date">
       
-      <input type="date" name="transaction_date" id="transaction_date"/>
+      <input type="date" name="transaction_date" placeholder="Date" style = "text-align: center" id="transaction_date" required/>
     </div>
 
     <div class="form-categories-container">
         <%@categories.each do |category|%>
             <label class="labl" for="<%=category.name%>">
-              <input type="radio" id="<%=category.name%>" name="category_id" value="<%=category.id%>"/>
+              <input type="radio" id="<%=category.name%>" name="category_id" value="<%=category.id%>" required/>
               <div class= "category-container-picker">
                 <div style = "background: <%=category.css_colour_1()%>" class= "category-image-container-picker">
                   <img class="transaction-list-icon" src="/<%=category.icon()%>"/>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="form-merchant">
-        <input type="text" list="listofmerchants" name="merchant_id" placeholder="Merchant" class="autocomplete">
+        <input type="text" list="listofmerchants" name="merchant_id" style = "text-align: center" placeholder="Merchant" class="autocomplete" required>
         <datalist id="listofmerchants">
             <%@merchants.each do |merchant|%>
                 <option value="<%=merchant.name()%>">

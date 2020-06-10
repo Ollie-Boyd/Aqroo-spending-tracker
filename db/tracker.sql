@@ -31,7 +31,8 @@ CREATE TABLE transactions (
   transaction_date DATE, --yyyy-mm-dd
   merchant_id INT REFERENCES merchants(id) ON DELETE SET NULL,
   category_id INT REFERENCES categories(id),
-  amount FLOAT(8)
+  amount FLOAT(8),
+  created_at TIMESTAMP DEFAULT NOW()
 );
 
 

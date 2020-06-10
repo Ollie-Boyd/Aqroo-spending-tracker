@@ -7,7 +7,7 @@ require_relative('./user')
 
 class Transaction
 
-    attr_reader :id, :transaction_date, :merchant_id, :category_id, :amount, :user_id
+    attr_reader :id, :transaction_date, :merchant_id, :category_id, :amount, :user_id, :timestamp
     
     def initialize(options)
         @id = options['id'].to_i if options['id']
@@ -16,13 +16,15 @@ class Transaction
         @category_id = options['category_id']
         @amount = options['amount'].to_f
         @user_id = options['user_id'].to_i
+        @timestamp = DateTime.parse(options['created_at']) if options['created_at']
     end
 
     def save()
-        sql = "INSERT INTO transactions (transaction_date, merchant_id, category_id, amount, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING transactions.id"
+        sql = "INSERT INTO transactions (transaction_date, merchant_id, category_id, amount, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING transactions.*"
         values = [@transaction_date, @merchant_id, @category_id, @amount, @user_id]
-        returned_id = SqlRunner.run(sql, values)[0]['id'].to_i
-        @id = returned_id
+        returned = SqlRunner.run(sql, values)[0]
+        @id = returned['id'].to_i
+        @timestamp = DateTime.parse(returned['created_at']) 
     end
 
     def amount_pretty()
