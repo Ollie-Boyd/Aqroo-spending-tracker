@@ -100,39 +100,48 @@ class User
         return retrieved_category_objects
     end
 
-
-    # **********************************************************
-    # METHODS RETRIEVING USER TRANSACTIONS BY DATE
-    # **********************************************************
-
-    def transactions_by_month(month_number)
-        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND EXTRACT( MONTH FROM transactions.transaction_date) = $2 ORDER BY transactions.transaction_date DESC"
-        values = [@id, month_number]
-        retrieved_transactions = SqlRunner.run(sql, values)
-        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
-        return retrieved_transaction_objects
+    def first_day_in_month(month, year)
+        return Date.parse("#{year}-#{month}-1") 
     end
 
-    def transactions_by_month__excluding_bills(month_number)
-        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transactions.category_id <> $2 AND EXTRACT( MONTH FROM transactions.transaction_date) = $3 ORDER BY transactions.transaction_date DESC"
-        values = [@id, 8 ,month_number]    #warning hardcoding the category id, in the future, the categories won't be editable by user.
-        retrieved_transactions = SqlRunner.run(sql, values)
-        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
-        return retrieved_transaction_objects
+    def last_day_in_month(month, year)
+       final_day = total_days_in_month(month, year)
+        return  Date.parse("#{year}-#{month}-#{final_day}") 
     end
     
     def spending_current_month_excluding_bills()
-        transactions_arr = transactions_by_month__excluding_bills(FakeToday.now().month())
+        current_date = FakeToday.now() 
+        year = current_date.year()
+        month = current_date.month()
+        from = first_day_in_month(month, year)
+        to = last_day_in_month(month, year)
+
+        transactions_arr = get_date_range_transactions_excluding_bills(from, to)
         return sum_transactions(transactions_arr)
     end
 
-    def transactions_grouped_by_date(month=false) #takes an optional month parameter if we want a specific month #need to fix to include year duh!!
+    def transactions_grouped_by_date__all_time() #takes an optional month & year parameter if we want a specific month #need to fix to include year duh!!
         user_transactions = transactions()
-        user_transactions = transactions_by_month(month) if month.is_a? Integer
         user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}
         user_transactions_grouped_hash_sorted = user_transactions_grouped_hash.each{ |_,arr| arr.sort_by{|arr| arr.timestamp()} }
         return user_transactions_grouped_hash
     end
+
+    def group_transactions_by_date(transaction_arr)
+     return transaction_arr.group_by{ |transaction| transaction.transaction_date()}
+    end
+
+    def transactions_grouped_by_date(month, year) 
+        user_transactions = transactions()
+
+        from = first_day_in_month(month, year)
+        to = last_day_in_month(month, year)
+        user_transactions = get_date_range_transactions_including_bills(from, to) 
+        user_transactions_grouped_hash = user_transactions.group_by{ |transaction| transaction.transaction_date()}
+        user_transactions_grouped_hash_sorted = user_transactions_grouped_hash.each{ |_,arr| arr.sort_by{|arr| arr.timestamp()} }
+        return user_transactions_grouped_hash
+    end
+
 
     def get_date_range_transactions_including_bills(from, to)
         sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transaction_date >= $2 AND transaction_date <  $3 ORDER BY transactions.transaction_date DESC"
@@ -142,14 +151,22 @@ class User
         return retrieved_transaction_objects
     end
 
+    def get_date_range_transactions_excluding_bills(from, to)
+        sql = "SELECT * FROM transactions WHERE transactions.user_id = $1 AND transaction_date >= $2 AND transaction_date <  $3 AND transactions.category_id <> $4 ORDER BY transactions.transaction_date DESC"
+        values = [@id, from, to, 8] #warning hardcoding the category id, in the future, the categories won't be editable by user.
+        retrieved_transactions = SqlRunner.run(sql, values)
+        retrieved_transaction_objects = Transaction.map_to_objects(retrieved_transactions)
+        return retrieved_transaction_objects
+    end
+
     def spending_as_percentage_of_income__current_month()
         current_date = FakeToday.now() 
         year = current_date.year()
         month = current_date.month()
-        first_day_this_month = Date.parse("#{year}-#{month}-1") 
+        first_day_in_month = first_day_in_month(month, year)
 
 
-        this_months_transactions = get_date_range_transactions_including_bills(first_day_this_month, current_date)
+        this_months_transactions = get_date_range_transactions_including_bills(first_day_in_month, current_date)
 
         amount_spent_so_far = sum_transactions(this_months_transactions)
 
@@ -160,19 +177,15 @@ class User
     end
 
     def total_spent_this_month()
-        transaction_arr = transactions_by_month(FakeToday.now().month())
+        current_date = FakeToday.now() 
+        year = current_date.year()
+        month = current_date.month()
+        from = first_day_in_month(month, year)
+        to = last_day_in_month(month, year)
+
+        transaction_arr = get_date_range_transactions_including_bills(from, to)
         return sum_transactions(transaction_arr)
     end
-
-
-    # **********************************************************
-    # **********************************************************
-    # **********************************************************
-
-
-
-
-
 
 
     def savings_goal_pretty()
@@ -204,12 +217,12 @@ class User
         return transaction_amounts.inject{|sum, transaction| sum + transaction}
     end
 
-    def total_days_in_month(year, month)
+    def total_days_in_month(month, year)
         Date.new(year, month, -1).day
     end
 
     def days_remaining_in_month()
-        return total_days_in_month(FakeToday.now.year, FakeToday.now.month)-days_so_far_in_month()
+        return total_days_in_month(FakeToday.now.month, FakeToday.now.year)-days_so_far_in_month()
     end
 
     def spending_as_percentage_of_income__same_day_last_month()
@@ -220,7 +233,7 @@ class User
         first_day_last_month = Date.parse("#{year}-#{last_month}-1") 
 
 
-        total_days_last_month = total_days_in_month(year, last_month)
+        total_days_last_month = total_days_in_month(last_month, year)
 
         #we don't want to tip into the next month's spending if the current month's number of calendar days is more than exist in this previous month. ie if this month has 31 days and last had 28
         end_day = day > total_days_last_month ? (total_days_last_month) : (day)
@@ -241,11 +254,11 @@ class User
         day = current_date.day() 
         year = current_date.year()
         month = current_date.month()
-        first_day_this_month = Date.parse("#{year}-#{month}-1") 
-        array_of_dates = (first_day_this_month..current_date).to_a
+        first_day_in_month = Date.parse("#{year}-#{month}-1") 
+        array_of_dates = (first_day_in_month..current_date).to_a
         hash_of_dates = array_of_dates.map{ |date| [ date, [0] ] }.to_h
         
-        this_months_transactions = transactions_grouped_by_date(month) ######## problem
+        this_months_transactions = transactions_grouped_by_date(month, year) 
 
         combined_hashes_with_spending = hash_of_dates.merge(this_months_transactions){|key, blank_arr, transactions| [blank_arr, transactions.map{|transaction| transaction.amount()}].flatten}  #refactor to make readable
         array_with_spending = combined_hashes_with_spending.map{|k,v| v }
@@ -257,7 +270,8 @@ class User
         starting_graph_percentage_y_axis = 0
         y_axis_reducing_value = array_with_summed_spending_as_percent_of_monthly_salary.map{|day_spend| starting_graph_percentage_y_axis+=day_spend}
         
-        days_in_month = total_days_in_month(year, month)
+        days_in_month = total_days_in_month(month, year)
+
         days_as_percentage = (100.0/days_in_month).round(4)
 
         day_percentages_as_arr = days_as_percentage.step(by: days_as_percentage).take(day)

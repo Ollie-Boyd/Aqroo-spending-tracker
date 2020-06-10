@@ -10,7 +10,7 @@ class FakeToday
     end
     
     def self.now()
-        return Date.parse("2020-06-09")
+        return Date.parse("2020-06-11")
     end
 
 end

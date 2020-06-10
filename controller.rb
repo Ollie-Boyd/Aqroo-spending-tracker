@@ -14,7 +14,7 @@ user = User.find_by_id(1)
 
 
 get '/transactions' do
-    @transactions = user.transactions_grouped_by_date()
+    @transactions = user.transactions_grouped_by_date__all_time()
     erb( :transactions)
 end
 
