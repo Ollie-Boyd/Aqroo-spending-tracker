@@ -4,17 +4,21 @@
     <div class = "transactions-header-wrapper">
         <span class="transactions-header">All transactions</span>
         <div class= "transactions-header-filter-wrapper">
-            <form class="new-transaction-form" method="POST" action="/transactions/filter">
-                <select id="month" name="month">
-                    <option value="5">May</option>
-                    <option value="6">June</option>
+            <form class="filter-transaction-form" method="POST" action="/transactions/filter">
+                <select id="month" class= "minimal" name="month" style = 'font-family: "'Noto Serif', serif"' required>
+                    <option selected="true" disabled="true" >month &#x25BE;</option>
+                     <%@months.each do |month|%>
+                        <option value="<%=month[1]%>"><%=month[0]%></option>
+                    <%end%>
                 </select>
-                 <select id="year" name="year">
-                    <option value="2020">2020</option>
-                    <option value="2019">2019</option>
+                 <select id="year" class= "minimal" name="year" style = 'font-family: "'Noto Serif', serif"' required>
+                    <option selected="true" disabled="true" >year &#x25BE;</option>
+                    <%@years.each do |year|%>
+                        <option value="<%=year%>"><%=year%></option>
+                    <%end%>
                 </select>
                 <div class="filter-submit">
-                    <input type="image" src="/funnel.svg" alt="Submit">
+                    <input type="image" style = "height: 60%;" src="/funnel.svg" alt="Submit">
                 </div>
             </form>
         </div>

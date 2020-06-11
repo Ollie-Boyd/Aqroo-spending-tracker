@@ -16,7 +16,7 @@ user = User.find_by_id(1)
 get '/transactions' do
     @transactions = user.transactions_grouped_by_date__all_time()
     @years = user.array_of_prev_years()
-    @months = user.array_of_prev_months()
+    @months = user.merged_prev_months_and_month_ints()
     erb( :transactions)
 end
 
@@ -29,22 +29,23 @@ end
 get '/transactions/:month/:year' do
     @transactions = user.transactions_grouped_by_date(params['month'].to_i, params['year'].to_i)
     @years = user.array_of_prev_years()
-    @months = user.array_of_prev_months()
-    erb( :transactions)
+    @months = user.merged_prev_months_and_month_ints()
+    erb(:transactions)
+end
+
+
+post '/transactions' do
+    merchant_id = user.check_merchant(params['merchant_id'])
+    transaction_hash = {'user_id' => user.id ,'transaction_date' => params[:transaction_date], 'merchant_id' => merchant_id, 'category_id' => params[:category_id], 'amount' => params[:amount]}
+    transaction = Transaction.new(transaction_hash)
+    transaction.save()
+    redirect '/transactions'
 end
 
 post '/transactions/filter' do
     month = params['month']
     year = params['year']
     redirect "/transactions/#{month}/#{year}"
-end
-
-post '/transactions' do
-    merchant_id = user.check_merchant(params[merchant_id])
-    transaction_hash = {'user_id' => user.id ,'transaction_date' => params[:transaction_date], 'merchant_id' => merchant_id, 'category_id' => params[:category_id], 'amount' => params[:amount]}
-    transaction = Transaction.new(transaction_hash)
-    transaction.save()
-    redirect '/transactions'
 end
 
 get '/profile' do

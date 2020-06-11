@@ -15,4 +15,4 @@ user_charlie = User.find_by_id(1)
 
 
 
-p user_charlie.array_of_prev_years()
+p user_charlie.check_merchant('sekkkkfse')

@@ -269,6 +269,7 @@ nav {
   figcaption {
     font-weight: bold;
     margin-bottom: 20px;
+    color: #646464;
   }
 figure {margin: 0px; width: 80%; height: 75%}
 
@@ -333,8 +334,9 @@ input[type=number] {
   box-sizing:border-box;
   font-size: 18px;
   font: inherit;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='100%' width='100%'><text x='2' y='13' fill='gray' font-size='12' font-family='arial'>$</text></svg>");
   background-repeat: no-repeat;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 input[type=submit] {
@@ -524,3 +526,60 @@ form{
   .transaction_date{
     font-size: 20px;
   }
+
+  .transactions-header-wrapper{
+    flex-direction: row;
+    align-items: baseline;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .transactions-header-filter-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .filter-transaction-form{
+    flex-direction: row;
+  }
+  
+.minimal{
+  padding:6px;
+  border-radius:10px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  width: 100%;
+  box-sizing:border-box;
+  font-size: 18px;
+  font-weight: bold;
+  font: inherit;
+  cursor:pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  background: #ffee81;
+  text-align: center;
+  color: #3d718a;
+  margin-left: 5px;
+  }
+
+  .filter-submit{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 50%;
+    box-shadow: .1rem .40rem .45rem 0 rgba(100,110,140,.4);
+    background: #f9c6e6;
+    height:37px;
+    width: 37px;
+    flex-shrink: 0;
+    margin-left: 5px;
+
+  }
+
+ 

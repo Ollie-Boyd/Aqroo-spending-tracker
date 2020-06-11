@@ -52,7 +52,7 @@ class User
     end
 
     def self.all()
-        sql = 'SELECT * FROM users;'
+        sql = 'SELECT * FROM users;'  
         retrieved_users = SqlRunner.run(sql)
         retrieved_user_objects = User.map_to_objects(retrieved_users)
         return retrieved_user_objects
@@ -274,11 +274,20 @@ class User
         date_to = @@current_date
         date_from = @@current_date << 11
         date_range = date_from..date_to        
-        arr_months = date_range.map {|d| d.strftime "%B"}.uniq
+        arr_months = date_range.map {|d| d.strftime "%B"}.uniq.reverse()
+        return arr_months
+    end
+
+    def array_of_prev_months_as_numbers()
+        return array_of_prev_months().map{|month| Date::MONTHNAMES.index(month) }
+    end
+
+    def merged_prev_months_and_month_ints()
+        return array_of_prev_months().zip(array_of_prev_months_as_numbers)
     end
 
     def array_of_prev_years()
         earliest_transaction_year = transactions().map{|transaction| transaction.transaction_date().year()}.min()       
-        return (earliest_transaction_year..@@current_year).to_a
+        return (earliest_transaction_year..@@current_year).to_a.reverse()
     end
 end
