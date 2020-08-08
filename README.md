@@ -38,11 +38,17 @@
 * **Database relationship diagram** - I have an A1 notepad for my diagrams as personally I am a big fan of doing them by hand. Once I was happy with these I mapped out the classes, their peoperties, and methods.
 
 ### What I learned along the way
-* **Graphing with no JS** - as I mentioned before, I was excited about trying my hand at the challenge of rendering some graphs with the help of Ruby. I knew I would have so use dynamically rendered SVG or CSS but which?
+* **Graphing with no JS/libraries** - as I mentioned before, I was excited about trying my hand at the challenge of rendering some graphs with the help of Ruby. I knew I would have so use dynamically rendered SVG or CSS but which?
 
 My tactic with anything like this is to read a whole lot of recent blogs/StackOverflow, bookmark the blogs that have some promising looking code examples, take those code examples into CodePen or JS Fiddle, strip them down to their most basic form, then play about/break them until I get my head around what's going on. Then comment the hell out of it. 
 
-The best resources I found in camp CSS were: [This 2015 blog on CSS graphs, probably the most detailed blog available](https://css-tricks.com/making-charts-with-css/), as was [this 2019 blog on using CSS conic-gradient for pie charts](https://keithclark.co.uk/articles/single-element-pure-css-pie-charts/), finally [this nicely written 2015 afticle on using CSS transform to make piecharts](https://www.smashingmagazine.com/2015/07/designing-simple-pie-charts-with-css/)
+The best resources I found in camp CSS were: [This 2015 blog on CSS graphs, probably the most detailed blog available](https://css-tricks.com/making-charts-with-css/), as was [this 2019 blog on using CSS conic-gradient for pie charts](https://keithclark.co.uk/articles/single-element-pure-css-pie-charts/), finally [this nicely written 2015 afticle on using CSS transform to make piecharts](https://www.smashingmagazine.com/2015/07/designing-simple-pie-charts-with-css/).
+
+The next contender is SVG : Again the best article was from 'CSS Tips' in their [2015 article on 'How to Make Charts with SVG'](https://css-tricks.com/how-to-make-charts-with-svg/). Another great read is this [blog port from Roemer Vlasveld](https://rvlasveld.github.io/blog/2013/07/02/creating-interactive-graphs-with-svg-part-1/) where he talks a bit about more advanced graphs. Finally this is a [superb read on doughnut pie charts in SVG](https://medium.com/@heyoka/scratch-made-svg-donut-pie-charts-in-html5-2c587e935d72). The comments in that final one give more advice. On a side note, I enjoy reading the FT but I am always dissapointed by their poor quality raster graphs! I wish they'd move to SVG. 
+
+
+I chose SVG in the end as it has a few things going for it that CSS just can't for now: It's more accessible because embedded text can be made readable by screen-readers, it's much better supported by older browsers as some of the CSS used in graphing has v. limited brower compatibility, and finally I thought it would be cooler to learn to manipulate SVG as it has more uses than CSS for complex shapes and can be used in a lot of different projects. You are stretching CSS near its limits to make a simple pie chart but in SVG you can go pretty wild as long as you have the maths to back it up. 
+
 ### What I know could be better and could be fixed in the next version
 
 
