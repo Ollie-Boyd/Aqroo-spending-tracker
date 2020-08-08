@@ -1,4 +1,4 @@
->### Brief
+### Brief
 >
 >Build an app that allows a user to track their spending.
 >
