@@ -21,13 +21,21 @@
 >* The user should be able to filter their view of transactions, for example, to view all transactions in a given month, or view all spending on groceries.
 ### Why I chose this brief
 * There were a few briefs but this one really spoke to me. I love keeping up with the latest consumer and SMB fintech developments and I was really excited to plan a similar style of app. My parents were really bad at managing their money growing up and I am the complete opposite so I had in mind some features that could be nice to try and implement.
-* I have a love of graphs and I was excited for the challenge of getting some dynamic graphing going without any JavaScript or libraries. 
+* I have a sad love of graphs and I was excited for the challenge of getting some dynamic graphing going without any JavaScript or libraries. 
 
 ### My initial thoughts, hopes, and aims
-* I wanted the webapp to be fully responsive from phone to desktop.
-* I wanted the tracker to be as slick as possible to use. I knew any friction at all will put a consumer off using it. 
+* I wanted the webapp to be fully responsive from phone to desktop. I have been involved in fixing a poorly implemented 'responsive' website and it's a lot easier to get things right first time than digging back through CSS.  
+* I wanted the tracker to be as frictionless as possible to use. I knew any friction at all will put a consumer off using it especially if they have to enter every purchase. This was kept in mind through the planning.
+* Accessibility - This was new to me and I tried to keep it in mind all the time although I have more to learn. 
 
 ### Planning
+* Planning took a solid day and a half of the project and it was so worth it as it made the rest of the process a lot easier and I hope made the result look better than I could have imagined at the start. I have used these steps to help me in subsequent projects and I hope I can keep refining them!
+* **Proto Personas** - I spent time putting my mind into the shoes of 5 potential users of the app. Keeping the characters real, detailed, and diverse helps me not get too fixated on what **I** would want.
+* **User Stories** - This was really helpful to flesh out the functionality of Aqroo from the perspective of my proto-personas. I also brainstormed functionallity with my girlfriend and flatmates. There were a lot of really cool ideas that I didn't have time to build into the app (one they really liked was having a way of seeing the recurring birthday/anniversary presents you needed to buy in a certain month and being able to tick them off. They struggled to budget for those larger spends which crop up in the year). 
+* **User Journeys** Getting the flow throught the app was key. For example I wanted to make entering a new transaction as simple as possible, eg the user would begin typing a merchant and their matching merchants would show. There would be no seperate screen to 'add a merchant'! If there was no match for a merchant the user had typed, the merchant would just be added as a new merchant on their account. 
+* **Wire Frames** - I went through many pages of notepaper wireframing the app. I wanted it to be aimed at a younger audience, maybe more teens and millenials which is why I ended up with a pretty 'young' feel to the colours and iconography. 
+* **Paper prototyping** - I had never tried this before and it was so, **so** useful. I used my flatmates as subjects and gave them various tasks to achieve in the app ( eg remove a merchant, add a transaction, view transactions from a certain month etc). For the most part they confirmed that the design language of the wireframes was pretty conventional but there were a couple of points where they were a bit uncertain or had to try a couple of times to get to the right place so I had to revise a couple of elements in the wireframes. 
+* **Database relationship diagram** - I have an A1 notepad for my diagrams as personally I am a big fan of doing them by hand. Once I was happy with these I mapped out the classes, their peoperties, and methods.
 
 ### What I learned along the way
 
