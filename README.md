@@ -1,4 +1,4 @@
-### Screenshots
+### Screenshots of the finished project
 <p align="center">
 <img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_new.jpg" width=50% height=auto%>
 <img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_dashboard.jpg" width=50% height=auto%>
@@ -45,7 +45,7 @@
 * **Database relationship diagram** - I have an A1 notepad for my diagrams as personally I am a big fan of doing them by hand. Once I was happy with these I mapped out the classes, their peoperties, and methods.
 
 ### What I learned along the way
-* **Graphing with no JS/libraries** - as I mentioned before, I was excited about trying my hand at the challenge of rendering some graphs with the help of Ruby. I knew I would have so use dynamically rendered SVG or CSS but which?
+**Graphing with no JS/libraries** - as I mentioned before, I was excited about trying my hand at the challenge of rendering some graphs with the help of Ruby. I knew I would have so use dynamically rendered SVG or CSS but which?
 
 My tactic with anything like this is to read a whole lot of recent blogs/StackOverflow, bookmark the blogs that have some promising looking code examples, take those code examples into CodePen or JS Fiddle, strip them down to their most basic form, then play about/break them until I get my head around what's going on. Then comment the hell out of it. 
 
@@ -55,7 +55,21 @@ The next contender is SVG : Again the best article was from 'CSS Tips' in their 
 
 I chose SVG in the end as it has a few things going for it that CSS just can't for now: It's more accessible because embedded text can be made readable by screen-readers, it's much better supported by older browsers as some of the CSS used in graphing has v. limited brower compatibility, and finally I thought it would be cooler to learn to manipulate SVG as it has more uses than CSS for complex shapes and can be used in a lot of different scenarios. It seems like you're stretching CSS to its limits making a simple pie chart but in SVG you can go pretty wild as long as you have the maths to back up the rendering. 
 
+Although I got the line and bar graphs working I didn't have time to implememt the Ruby for the pie chart to show spending by category. I did figure the CSS out [here](https://codepen.io/OllieBoyd/pen/vYLxpKB) though!
+
+**Dates, timezones and timestamps between server and DB** - This wasn't something I predicted but I ended up doing heaps of reading into dat/time formats and timestamp formats. Also how to deal with time zone differences between database, server and user. I am not going to lie, sometimes it made my head hurt but I think I have a fairly good idea of the concepts and challenges now. 
+
+**I really improved my CSS** - I was really happy with how the responsive-ness turned out. It works well between super widescreen and mobile. I learned a whole load of new css but there is more to learn as I will comment on below. 
+
+**Ennumerables, ennumerables, ennumerables** - I adore the vast amount of ennumerables built into Ruby. It feels like a treasure hunt whenever I'm reading through the excellent Ruby docs as there is always a new one to learn or an interesting way to combine them I see on StackOverflow. I tried to only use ennumerables in this project and I hope my code remains readable with explicit variable names. 
+
 ### What I know could be better and could be fixed in the next version
+
+There is a lot I learned from this project. On a human note, I learned to accept that it's OK to not finish everything on my stretch goals. I was working morning until night every day and there was definitely a risk of burnout. I would try and take more time off next time. Technically here is what was needed:
+* The CRUD methods on every model are completely redundant and should just be inherited (but I didn't know about inheritance at the time). 
+* Overall I should have been more semantic with my HTML.
+* My CSS is not DRY. I didn't really understand the way CSS cascades at the time and my CSS class naming could be more organised. Next time I would try and stick with something like BEM http://getbem.com/introduction/ . 
+
 
 
 
