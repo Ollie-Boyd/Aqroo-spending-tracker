@@ -42,7 +42,7 @@
 
 My tactic with anything like this is to read a whole lot of recent blogs/StackOverflow, bookmark the blogs that have some promising looking code examples, take those code examples into CodePen or JS Fiddle, strip them down to their most basic form, then play about/break them until I get my head around what's going on. Then comment the hell out of it. 
 
-The best resources I found in camp CSS were:[This 2015 blog on CSS graphs was useful](https://css-tricks.com/making-charts-with-css/), as was [this 2019 blog on using CSS conic-gradient for pie charts](https://keithclark.co.uk/articles/single-element-pure-css-pie-charts/), finally [this 2015 afticle on using CSS transform to make piecharts](https://www.smashingmagazine.com/2015/07/designing-simple-pie-charts-with-css/)
+The best resources I found in camp CSS were: [This 2015 blog on CSS graphs, probably the most detailed blog available](https://css-tricks.com/making-charts-with-css/), as was [this 2019 blog on using CSS conic-gradient for pie charts](https://keithclark.co.uk/articles/single-element-pure-css-pie-charts/), finally [this nicely written 2015 afticle on using CSS transform to make piecharts](https://www.smashingmagazine.com/2015/07/designing-simple-pie-charts-with-css/)
 ### What I know could be better and could be fixed in the next version
 
 
