@@ -1,8 +1,11 @@
 ### Screenshots of the finished project
 <p align="center">
 <img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_new.jpg" width=50% height=auto%>
+&nbsp;
 <img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_dashboard.jpg" width=50% height=auto%>
+&nbsp;
 <img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_transactions.jpg" width=50% height=auto%>
+&nbsp;
 </p>
 
 ### Brief
