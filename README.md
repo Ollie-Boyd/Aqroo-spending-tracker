@@ -1,5 +1,10 @@
 ### Screenshots
+<p align="center">
 <img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_new.jpg" width=50% height=auto%>
+<img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_dashboard.jpg" width=50% height=auto%>
+<img src="https://raw.githubusercontent.com/Ollie-Boyd/week-4-project/master/screenshots/aqroo_tracker_transactions.jpg" width=50% height=auto%>
+</p>
+
 ### Brief
 >
 >Build an app that allows a user to track their spending. No JavaScript or other libraries. Pure Ruby, CSS, and HTML.
